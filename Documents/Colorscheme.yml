@@ -1,0 +1,5 @@
+colors:
+  pink:
+    light:  "#ffccee"
+    normal: "#d06a82"
+    dark:   "#962d4c"

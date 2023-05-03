@@ -1,0 +1,5 @@
+pacman -S xorg xorg-init
+pacman -S i3
+pacman -S git
+pacman -S firefox dmenu alacritty
+pacman -S nitrogen

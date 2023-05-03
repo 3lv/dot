@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xbel version="1.0"
+      xmlns:bookmark="http://www.freedesktop.org/standards/desktop-bookmarks"
+      xmlns:mime="http://www.freedesktop.org/standards/shared-mime-info"
+>
+  <bookmark href="file:///home/vlad/Images/Wallpapers/BlueNight.webp" added="2023-05-01T06:21:00.354034Z" modified="2023-05-01T06:21:03.928409Z" visited="2023-05-01T06:21:00.354039Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="image/webp"/>
+        <bookmark:applications>
+          <bookmark:application name="Firefox" exec="&apos;firefox %u&apos;" modified="2023-05-01T06:21:03.928340Z" count="2"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/vlad/Images/Wallpapers/JapaneseNight.jpg" added="2023-05-01T06:23:14.878703Z" modified="2023-05-01T06:24:29.266851Z" visited="2023-05-01T06:23:14.878707Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="image/jpeg"/>
+        <bookmark:applications>
+          <bookmark:application name="Firefox" exec="&apos;firefox %u&apos;" modified="2023-05-01T06:24:29.266844Z" count="4"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/vlad/Downloads/FiraCode.zip" added="2023-05-01T09:35:50.525039Z" modified="2023-05-01T09:35:50.525054Z" visited="2023-05-01T09:35:50.525043Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="application/zip"/>
+        <bookmark:applications>
+          <bookmark:application name="Firefox" exec="&apos;firefox %u&apos;" modified="2023-05-01T09:35:50.525048Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/vlad/Downloads/FiraMono.zip" added="2023-05-01T09:59:40.459231Z" modified="2023-05-01T09:59:40.459248Z" visited="2023-05-01T09:59:40.459235Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="application/zip"/>
+        <bookmark:applications>
+          <bookmark:application name="Firefox" exec="&apos;firefox %u&apos;" modified="2023-05-01T09:59:40.459242Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/vlad/Images/Wallpapers/angel.gif" added="2023-05-03T14:27:14.964005Z" modified="2023-05-03T14:27:15.287289Z" visited="2023-05-03T14:27:14.964008Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="image/gif"/>
+        <bookmark:applications>
+          <bookmark:application name="Firefox" exec="&apos;firefox %u&apos;" modified="2023-05-03T14:27:15.287280Z" count="2"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/vlad/Images/Wallpapers/Tree.png" added="2023-05-03T15:31:22.159100Z" modified="2023-05-03T15:31:22.481422Z" visited="2023-05-03T15:31:22.159105Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="image/png"/>
+        <bookmark:applications>
+          <bookmark:application name="Firefox" exec="&apos;firefox %u&apos;" modified="2023-05-03T15:31:22.481415Z" count="2"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+</xbel>
