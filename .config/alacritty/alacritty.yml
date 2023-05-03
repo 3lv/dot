@@ -1,0 +1,87 @@
+colors:
+  cursor:
+    text: '0x000000'
+    cursor: '0xffffff'
+#  # Default colors
+  primary:
+    background: "#090611"
+    foreground: "#ffccee"
+#  # Normal colors
+  normal:
+    black: "#290613"
+    red: "#ac3834"
+    green: "#b0da6a"
+    yellow: "#f3cab9"
+    blue: "#868aa5"
+    magenta: "#8f4e63"
+    cyan: "#82afb2"
+    white: "#ffe3f6"
+#
+#  # Bright colors
+#  bright:
+#    black: "#3B4252"
+#    red: "#D54646"
+#    green: "#23D18B"
+#    yellow: "#D7BA7D"
+#    blue: "#569CD6"
+#    magenta: "#C586C0"
+#    cyan: "#29B8DB"
+#    white: "#ECEFF4"
+##
+
+font:
+  # The normal (roman) font face to use.
+  normal:
+    family: FiraMono Nerd Font
+    # Style can be specified to pick a specific face.
+    style: Regular
+
+  # The bold font face
+  bold:
+    family: FiraMono Nerd Font
+    # Style can be specified to pick a specific face.
+    # style: Bold
+
+  # The italic font face
+  italic:
+    family: FiraMono Nerd Font
+    # Style can be specified to pick a specific face.
+    # style: Italic
+  size: 15
+
+  offset:
+    x: 0
+    y: 0
+  glyph_offset:
+    x: 0
+    y: 0
+window:
+  opacity: 0.8
+  padding:
+    x: 2
+    y: 2
+  # scrolling:
+  #   # Maximum number of lines in the scrollback buffer.
+  #   # Specifying '0' will disable scrolling.
+  history: 10000
+  #   # Number of lines the viewport will move for every line scrolled when
+  #   # scrollback is enabled (history > 0).
+  #   multiplier: 10
+
+  # # If `true`, bold text is drawn using the bright color variants.
+  # draw_bold_text_with_bright_colors: true
+
+  # selection:
+  semantic_escape_chars: ',│`|:"'' ()[]{}<>'
+  save_to_clipboard: true
+  live_config_reload: true
+key_bindings:
+  - { key: V, mods: Control|Shift, action: Paste }
+  - { key: C, mods: Control|Shift, action: Copy }
+  - { key: Key0, mods: Control, action: ResetFontSize }
+  - { key: Equals, mods: Control, action: IncreaseFontSize }
+  # - { key: Add, mods: Control, action: IncreaseFontSize }
+  # - { key: Subtract, mods: Control, action: DecreaseFontSize }
+  - { key: Minus, mods: Control, action: DecreaseFontSize }
+  # - { key: N, mods: Control, action: SpawnNewInstance }
+
