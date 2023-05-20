@@ -13,12 +13,12 @@
       </metadata>
     </info>
   </bookmark>
-  <bookmark href="file:///home/vlad/Images/Wallpapers/JapaneseNight.jpg" added="2023-05-01T06:23:14.878703Z" modified="2023-05-01T06:24:29.266851Z" visited="2023-05-01T06:23:14.878707Z">
+  <bookmark href="file:///home/vlad/Images/Wallpapers/JapaneseNight.jpg" added="2023-05-01T06:23:14.878703Z" modified="2023-05-09T12:00:32.249415Z" visited="2023-05-01T06:23:14.878707Z">
     <info>
       <metadata owner="http://freedesktop.org">
         <mime:mime-type type="image/jpeg"/>
         <bookmark:applications>
-          <bookmark:application name="Firefox" exec="&apos;firefox %u&apos;" modified="2023-05-01T06:24:29.266844Z" count="4"/>
+          <bookmark:application name="Firefox" exec="&apos;firefox %u&apos;" modified="2023-05-09T12:00:32.249407Z" count="6"/>
         </bookmark:applications>
       </metadata>
     </info>
@@ -43,12 +43,12 @@
       </metadata>
     </info>
   </bookmark>
-  <bookmark href="file:///home/vlad/Images/Wallpapers/angel.gif" added="2023-05-03T14:27:14.964005Z" modified="2023-05-03T14:27:15.287289Z" visited="2023-05-03T14:27:14.964008Z">
+  <bookmark href="file:///home/vlad/Images/Wallpapers/angel.gif" added="2023-05-03T14:27:14.964005Z" modified="2023-05-09T12:01:54.599099Z" visited="2023-05-03T14:27:14.964008Z">
     <info>
       <metadata owner="http://freedesktop.org">
         <mime:mime-type type="image/gif"/>
         <bookmark:applications>
-          <bookmark:application name="Firefox" exec="&apos;firefox %u&apos;" modified="2023-05-03T14:27:15.287280Z" count="2"/>
+          <bookmark:application name="Firefox" exec="&apos;firefox %u&apos;" modified="2023-05-09T12:01:54.599091Z" count="3"/>
         </bookmark:applications>
       </metadata>
     </info>
@@ -59,6 +59,197 @@
         <mime:mime-type type="image/png"/>
         <bookmark:applications>
           <bookmark:application name="Firefox" exec="&apos;firefox %u&apos;" modified="2023-05-03T15:31:22.481415Z" count="2"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/vlad/Images/tput_setaf_colors.png" added="2023-05-07T16:31:16.826594Z" modified="2023-05-07T16:31:17.119696Z" visited="2023-05-07T16:31:16.826598Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="image/png"/>
+        <bookmark:applications>
+          <bookmark:application name="Firefox" exec="&apos;firefox %u&apos;" modified="2023-05-07T16:31:17.119691Z" count="2"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/vlad/Downloads/2023_05_10_0my_Kleki.png" added="2023-05-10T10:46:45.868328Z" modified="2023-05-10T10:46:45.868339Z" visited="2023-05-10T10:46:45.868331Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="image/png"/>
+        <bookmark:applications>
+          <bookmark:application name="Firefox" exec="&apos;firefox %u&apos;" modified="2023-05-10T10:46:45.868335Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/vlad/Downloads/2023_05_10_0my_Kleki(1).png" added="2023-05-10T10:46:47.975479Z" modified="2023-05-10T10:46:47.975501Z" visited="2023-05-10T10:46:47.975484Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="image/png"/>
+        <bookmark:applications>
+          <bookmark:application name="Firefox" exec="&apos;firefox %u&apos;" modified="2023-05-10T10:46:47.975492Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/vlad/Downloads/2023_05_10_0my_Kleki(2).png" added="2023-05-10T10:46:54.570987Z" modified="2023-05-10T10:46:54.571011Z" visited="2023-05-10T10:46:54.570991Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="image/png"/>
+        <bookmark:applications>
+          <bookmark:application name="Firefox" exec="&apos;firefox %u&apos;" modified="2023-05-10T10:46:54.571000Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/vlad/Downloads/2023_05_10_0my_Kleki(3).png" added="2023-05-10T10:46:54.773788Z" modified="2023-05-10T10:46:54.773804Z" visited="2023-05-10T10:46:54.773792Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="image/png"/>
+        <bookmark:applications>
+          <bookmark:application name="Firefox" exec="&apos;firefox %u&apos;" modified="2023-05-10T10:46:54.773798Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/vlad/Downloads/2023_05_10_0n0_Kleki.png" added="2023-05-10T10:48:16.497237Z" modified="2023-05-10T10:48:16.497256Z" visited="2023-05-10T10:48:16.497242Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="image/png"/>
+        <bookmark:applications>
+          <bookmark:application name="Firefox" exec="&apos;firefox %u&apos;" modified="2023-05-10T10:48:16.497248Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/vlad/Images/line.png" added="2023-05-10T10:48:40.442610Z" modified="2023-05-10T11:10:27.425044Z" visited="2023-05-10T10:48:40.442615Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="image/png"/>
+        <bookmark:applications>
+          <bookmark:application name="Firefox" exec="&apos;firefox %u&apos;" modified="2023-05-10T11:10:27.425038Z" count="13"/>
+          <bookmark:application name="discord" exec="&apos;discord %u&apos;" modified="2023-05-10T10:56:02.574965Z" count="3"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/vlad/Downloads/2023_05_10_0n3_Kleki.png" added="2023-05-10T10:51:25.385150Z" modified="2023-05-10T10:51:25.385170Z" visited="2023-05-10T10:51:25.385155Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="image/png"/>
+        <bookmark:applications>
+          <bookmark:application name="Firefox" exec="&apos;firefox %u&apos;" modified="2023-05-10T10:51:25.385163Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/vlad/Downloads/2023_05_10_0nb_Kleki.png" added="2023-05-10T10:59:01.370966Z" modified="2023-05-10T10:59:01.370990Z" visited="2023-05-10T10:59:01.370971Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="image/png"/>
+        <bookmark:applications>
+          <bookmark:application name="Firefox" exec="&apos;firefox %u&apos;" modified="2023-05-10T10:59:01.370980Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/vlad/Downloads/2023_05_10_0ng_Kleki.png" added="2023-05-10T11:04:53.982130Z" modified="2023-05-10T11:04:53.982142Z" visited="2023-05-10T11:04:53.982133Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="image/png"/>
+        <bookmark:applications>
+          <bookmark:application name="Firefox" exec="&apos;firefox %u&apos;" modified="2023-05-10T11:04:53.982138Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/vlad/Downloads/2023_05_10_0nm_Kleki.png" added="2023-05-10T11:10:07.948247Z" modified="2023-05-10T11:10:07.948267Z" visited="2023-05-10T11:10:07.948251Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="image/png"/>
+        <bookmark:applications>
+          <bookmark:application name="Firefox" exec="&apos;firefox %u&apos;" modified="2023-05-10T11:10:07.948257Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/vlad/Downloads/favicon_package_v0.16.zip" added="2023-05-10T11:14:16.472741Z" modified="2023-05-10T11:14:16.472763Z" visited="2023-05-10T11:14:16.472745Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="application/zip"/>
+        <bookmark:applications>
+          <bookmark:application name="Firefox" exec="&apos;firefox %u&apos;" modified="2023-05-10T11:14:16.472755Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/vlad/Downloads/favicon_package_v0.16(1).zip" added="2023-05-10T11:14:33.920675Z" modified="2023-05-10T11:14:33.920693Z" visited="2023-05-10T11:14:33.920680Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="application/zip"/>
+        <bookmark:applications>
+          <bookmark:application name="Firefox" exec="&apos;firefox %u&apos;" modified="2023-05-10T11:14:33.920686Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/vlad/Downloads/favicon_package_v0.16(2).zip" added="2023-05-10T11:15:11.554613Z" modified="2023-05-10T11:15:11.554718Z" visited="2023-05-10T11:15:11.554619Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="application/zip"/>
+        <bookmark:applications>
+          <bookmark:application name="Firefox" exec="&apos;firefox %u&apos;" modified="2023-05-10T11:15:11.554694Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/vlad/Downloads/favicon_package_v0.16(3).zip" added="2023-05-10T11:20:36.443832Z" modified="2023-05-10T11:20:36.443846Z" visited="2023-05-10T11:20:36.443836Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="application/zip"/>
+        <bookmark:applications>
+          <bookmark:application name="Firefox" exec="&apos;firefox %u&apos;" modified="2023-05-10T11:20:36.443841Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/vlad/Downloads/MateInfoUb_subiecte_etapa2_Informatica_28mai2022.pdf" added="2023-05-17T18:21:31.655270Z" modified="2023-05-17T18:21:31.655302Z" visited="2023-05-17T18:21:31.655273Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="application/pdf"/>
+        <bookmark:applications>
+          <bookmark:application name="Firefox" exec="&apos;firefox %u&apos;" modified="2023-05-17T18:21:31.655295Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/vlad/Downloads/MateInfoUb_subiecte_etapa2_Informatica_28mai2022-1.pdf" added="2023-05-18T17:45:24.502531Z" modified="2023-05-18T17:45:24.502562Z" visited="2023-05-18T17:45:24.502538Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="application/pdf"/>
+        <bookmark:applications>
+          <bookmark:application name="Firefox" exec="&apos;firefox %u&apos;" modified="2023-05-18T17:45:24.502551Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/vlad/Downloads/MateInfoUb_subiecte_etapa2_Informatica_28mai2022-2.pdf" added="2023-05-18T17:47:39.896996Z" modified="2023-05-18T17:47:39.897014Z" visited="2023-05-18T17:47:39.897000Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="application/pdf"/>
+        <bookmark:applications>
+          <bookmark:application name="Firefox" exec="&apos;firefox %u&apos;" modified="2023-05-18T17:47:39.897010Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/vlad/workspace/html/line/v3/cazan.zip" added="2023-05-19T19:21:28.645399Z" modified="2023-05-19T19:21:28.645413Z" visited="2023-05-19T19:21:28.645403Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="application/zip"/>
+        <bookmark:applications>
+          <bookmark:application name="discord" exec="&apos;discord %u&apos;" modified="2023-05-19T19:21:28.645408Z" count="1"/>
         </bookmark:applications>
       </metadata>
     </info>

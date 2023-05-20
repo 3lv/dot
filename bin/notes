@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/bash
 
 file_name='~/.chestiirandom.sh'
 if [ $# -eq 0 ]

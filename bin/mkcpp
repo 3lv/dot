@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/bash
 
 if [ $# -eq 0 ]
 then
@@ -11,8 +11,7 @@ then
   else
     mkdir $1
     cd $1
-    #cp ~/Templates/main.cpp $1.cpp
-    cp ~/Templates/main.cpp $1.cpp
+    cp ~/templates/main.cpp $1.cpp
     touch $1.in
     touch $1.out
     touch .ccls

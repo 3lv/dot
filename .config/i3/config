@@ -14,11 +14,11 @@ set $mod Mod4
 
 
 
-default_border pixel 2
-default_floating_border pixel 2
-for_window [class="^.*"] border pixel 2
-gaps inner 20
-gaps outer 0
+default_border pixel 0
+default_floating_border pixel 0
+for_window [class="^.*"] border pixel 0
+gaps inner 10
+gaps outer 4
 
 
 # class                 border  backgr. text    indicator child_border
@@ -38,34 +38,21 @@ bindsym $mod+i exec /home/vlad/bin/scratchpad
 for_window [class="__scratchpad"] floating enable
 bindsym $mod+n exec /home/vlad/bin/notes
 for_window [class="__notes"] floating enable
+# Have to get xprop working
+bindsym $mod+p exec --no-startup-id xprop
 
 
-# Font for window titles. Will also be used by the bar unless a different font
-# is used in the bar {} block below.
 font pango:monospace 10
 
-# This font is widely installed, provides lots of unicode glyphs, right-to-left
-# text rendering and scalability on retina/hidpi displays (thanks to pango).
 #font pango:DejaVu Sans Mono 8
 
-# Start XDG autostart .desktop files using dex. See also
-# https://wiki.archlinux.org/index.php/XDG_Autostart
-exec --no-startup-id dex --autostart --environment i3
-
-# The combination of xss-lock, nm-applet and pactl is a popular choice, so
-# they are included here as an example. Modify as you see fit.
-
-# xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
-# screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
-exec --no-startup-id nm-applet
 
 # Use pactl to adjust volume in PulseAudio.
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +2%
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -2%
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +1%
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -1%
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
 
@@ -141,16 +128,27 @@ bindsym $mod+a focus parent
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 "1"
-set $ws2 "2"
-set $ws3 "3"
-set $ws4 "4"
-set $ws5 "5"
-set $ws6 "6"
-set $ws7 "7"
-set $ws8 "8"
-set $ws9 "9"
-set $ws10 "10"
+set $ws1 "1󰇗"
+set $ws2 "2"
+set $ws3 "3_"
+set $ws4 "4󰈹"
+set $ws5 "5_"
+set $ws6 "6_"
+set $ws7 "7_"
+set $ws8 "8󰼭"
+set $ws9 "9󰙯"
+set $ws10 "10 "
+set $ws11 "11_"
+set $ws12 "12_"
+set $ws13 "13_"
+set $ws14 "14_"
+set $ws15 "15_"
+set $ws16 "16_"
+set $ws17 "17_"
+set $ws18 "18_"
+set $ws19 "19_"
+set $ws20 "20_"
+# TODO use all ws when getting another monitor
 
 # switch to workspace
 bindsym $mod+1 workspace number $ws1
@@ -216,12 +214,14 @@ bindsym $mod+r mode "resize"
 #         status_command i3status
 # }
 
-exec_always --no-startup-id picom --config ~/.config/picom/picom.conf
-
 # Wallpaper
-exec_always --no-startup-id xwallpaper --stretch ~/Images/Wallpapers/JapaneseNight.jpg
+exec_always --no-startup-id feh --bg-scale ~/images/wallpapers/JapaneseNight.jpg
 
 # Status bar
 exec_always --no-startup-id polybar
 
 # Window Compositor
+exec_always --no-startup-id picom --config ~/.config/picom/picom.conf
+
+# Hide cursor
+exec_always --no-startup-id unclutter --timeout 3

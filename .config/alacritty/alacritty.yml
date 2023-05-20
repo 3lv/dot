@@ -5,28 +5,29 @@ colors:
 #  # Default colors
   primary:
     background: "#090611"
-    foreground: "#ffccee"
+      #foreground: "#ffccee"
+    foreground: "#fac5e7"
 #  # Normal colors
   normal:
     black: "#290613"
-    red: "#ac3834"
+    red: "#ad3834"
     green: "#b0da6a"
-    yellow: "#f3cab9"
+    yellow: "#ffd500"
     blue: "#868aa5"
     magenta: "#8f4e63"
-    cyan: "#82afb2"
+    cyan: "#00c0c0"
     white: "#ffe3f6"
-#
-#  # Bright colors
-#  bright:
-#    black: "#3B4252"
-#    red: "#D54646"
-#    green: "#23D18B"
-#    yellow: "#D7BA7D"
-#    blue: "#569CD6"
-#    magenta: "#C586C0"
-#    cyan: "#29B8DB"
-#    white: "#ECEFF4"
+
+  # Bright colors
+  bright:
+    black: "#7e677e"
+    red: "#D94949"
+    green: "#23D18B"
+    yellow: "#D7BA7D"
+    blue: "#569CD6"
+    magenta: "#C586C0"
+    cyan: "#42ffff"
+    white: "#ECEFF4"
 ##
 
 font:
@@ -47,7 +48,7 @@ font:
     family: FiraMono Nerd Font
     # Style can be specified to pick a specific face.
     # style: Italic
-  size: 15
+  size: 12
 
   offset:
     x: 0
