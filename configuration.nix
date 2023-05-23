@@ -47,6 +47,7 @@
 	# Enable the X11 windowing system.
 	services.xserver = {
 		enable = true;
+		autorun = false;
 		layout = "us";
 		displayManager.startx.enable = true;
 		# desktopManager = {
