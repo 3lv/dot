@@ -48,9 +48,7 @@
 	services.xserver = {
 		enable = true;
 		layout = "us";
-		displayManager = {
-			defaultSession = "none+i3";
-		};
+		displayManager.startx.enable = true;
 		# desktopManager = {
 		# 	default = "none";
 		# 	xterm.enable = false;
