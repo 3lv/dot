@@ -1,0 +1,38 @@
+
+# check for swapfile
+sudo swapon --show
+#^it should output an already existing /swapfile
+#
+# Turn all swapfiles (the default one) off
+sudo swapoff -a
+# allocate RAM+2G for the /swapfile
+sudo fallocate -l 18G /swapfile
+# only root should be able to read and write to /swapfile
+sudo chmod 600 /swapfile
+#
+# make it a swap file, idk if needed
+sudo mkswap /swapfile
+#
+# turn on <_< the swapfile
+sudo swapon /swapfile
+#
+# edit /etc/fstab to store the new info about the filesystem
+# /swapfile swap swap defaults 0 0
+sudo vim /etc/fstab
+#
+# you can check the swap again
+#
+#
+# Edit grub config so it resumes from the /swapfile on boot
+# /etc/default/grub
+# GRUB_CMDLINE_LINUX_DEFAULT="bla bla bla resume=UUID=xxx resume_offset=yyy"
+#
+# where the UUID is found in /etc/fstab (the primary partition)
+# and the offset from filefrag -v /swapfile   (physical_offset of first extent)
+sudo vim /etc/default/grub
+#
+#
+# add the resume module in /etc/mkinitcpio.conf
+# HOOKS="bla bla bla resume"
+sudo vim /etc/mkinitcpio.conf
+mkinitcpio -p linux

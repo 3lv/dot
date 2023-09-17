@@ -1,0 +1,4 @@
+#!/usr/bin/bash
+
+tmp_file=$(mktemp)
+alacritty --class="__scratchpad" -e $SHELL -lc "sleep 0.1 && nvim -c startinsert -c 'setlocal spell' ${tmp_file}" && cat "${tmp_file}" | xsel -i -b && xdotool key ctrl+v Return

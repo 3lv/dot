@@ -1,0 +1,223 @@
+/* to enable set about:config toolkit.legacyUserProfileCustomizations.stylesheets true*/
+/* TODO Get window_control_placeholder_support.css Window controls will be all wrong without it */
+/* chrome://browser/content/browser.xhtml to inspect elements */
+*|*:root {
+	--tab-min-height:      33px !important; /* adjust */
+	--tab-min-width:       60px !important; /* adjust */
+}
+
+/* TABS: height */
+#tabbrowser-tabs,
+.tabbrowser-tabs .tabbrowser-tab {
+	min-height: var(--tab-min-height) !important;
+	max-height: var(--tab-min-height) !important;
+}
+#tabbrowser-tabs > #tabbrowser-arrowscrollbox {
+	min-height: var(--tab-min-height) !important;
+	max-height: var(--tab-min-height) !important;
+	/* TODO make arrows invisible */
+}
+/*
+ * working attempt
+#tabbrowser-tabs{ --uc-scrollbutton-display: none }
+#scrollbutton-up{ display: var(--uc-scrollbutton-display,initial) }
+#scrollbutton-down{ display: var(--uc-scrollbutton-display,initial) }
+*/
+/*
+ * not working attempt
+#tabbrowser-arrowscrollbox::part(scrollbutton-up),
+#tabbrowser-arrowscrollbox::part(scrollbutton-down) {
+	display: none !important;
+	margin: 50px !important;
+	appearance: auto !important;
+	background-clip: text !important;
+	border: 50px solid red !important;
+	border-radius: 100px !important;
+	padding: 50px 50px !important;
+}
+*/
+#scrollbutton-up {
+	display: none !important;
+}
+#scrollbutton-down {
+	display: none !important;
+}
+spacer::part(overflow-end-indicator) {
+	border-left: 10px solid rgba(255, 0, 0, 0.5);
+	border-right: 10px solid rgba(255, 0, 0, 0.5);
+}
+over-flow-end-indicator {
+	border-left: 10px solid rgba(255, 0, 0, 0.5);
+	border-right: 10px solid rgba(255, 0, 0, 0.5);
+}
+#scrollbutton
+.arrowscrollbox-overflow-start-indicator, 
+.arrowscrollbox-overflow-end-indicator {
+  background-image: none !important;
+  border-image: none !important;
+border-left: 10px solid rgba(255, 0, 0, 0.5);
+background: rgba(255, 0, 0, 0.5);
+color: rgba(255, 0, 0, 0.5);
+padding: 50px;
+margin: 50px;
+
+}
+/*
+spacer {
+	border-left: 10px solid rgba(255, 0, 0, 0.5);
+}
+*/
+#tabbrowser-arrowscrollbox::part(overflow-end-indicator) {
+	border-left: 10px solid rgba(255, 0, 0, 0.5);
+	padding: 0 !important;
+	margin: 0 !important;
+	max-width: 100% !important;
+}
+#tabbrowser-arrowscrollbox:not([scrolledtoend])::part(overflow-end-indicator) {
+	border-left: 10px solid rgba(255, 0, 0, 0.5);
+	padding: 0 !important;
+	margin: 0 !important;
+	max-width: 100% !important;
+}
+
+.tabbrowser-tab[label="New Tab"] .tab-icon-image {
+	display: none !important;
+}
+#reload-button, #stop-button, #back-button, #forward-button, #PanelUI-button, #alltabs-button {
+	display: none !important;
+}
+#star-button-box{
+	display: none !important;
+}
+#identity-box {
+	display: none !important;
+}
+#tracking-protection-icon-container {
+	display: none !important;
+}
+/*
+#urlbar-zoom-button {
+	margin: 0;
+}
+*/
+#tabbrowser-tabs .tabbrowser-tab .tab-close-button {
+	display: none !important;
+}
+#unified-extensions-button{
+	width: 0px !important;
+	padding: 0px !important;
+}
+#unified-extensions-button > .toolbarbutton-icon {
+	width: 0 !important;
+}
+/* Tab bar */
+#tabs-newtab-button {
+	display: none !important;
+}
+.resize {
+	margin-right: 22px;
+}
+#navigator-toolbox {
+	--uc-navigationbar-width: 450px;
+	--uc-toolbar-height: 26px;
+}
+#urlbar-container {
+	max-width: 100% !important;
+}
+/* Override for other densities */
+:root[uidensity="compact"] #navigator-toolbox {
+	--uc-toolbar-height: 32px;
+}
+:root[uidensity="touch"] #navigator-toolbox {
+	--uc-toolbar-height: 38px;
+}
+:root[uidensity=compact] #urlbar-container.megabar {
+	--urlbar-container-height: var(--uc-toolbar-height) !important;
+	padding-block: 0 !important;
+}
+:root[uidensity=compact] #urlbar.megabar {
+	--urlbar-toolbar-height: var(--uc-toolbar-height) !important;
+}
+/* prevent urlbar overflow on narrow windows */
+/* Dependent on how many items are in navigation toolbar and tabs-/nav-bar ratio - ADJUST AS NEEDED */
+
+@media screen and (max-height: 400px) {
+	#navigator-toolbox {
+		height: 0px !important;
+		display: none !important;
+	}
+}
+
+/*
+@media screen and (max-width: 1000px) {
+	#urlbar-container {
+		display: none !important;
+		flex: 0 1 0px;
+		min-width: unset !important;
+	}
+}
+*/
+#toolbar-menubar {
+	height: initial !important;
+}
+#toolbar-menubar[inactive]> :not(.titlebar-buttonbox-container) {
+	opacity: 0;
+	pointer-events: none;
+}
+#toolbar-menubar[inactive] {
+	margin-bottom: calc(0px - var(--uc-toolbar-height))
+}
+#TabsToolbar>.titlebar-buttonbox-container,
+.titlebar-spacer[type="post-tabs"] {
+	display: none;
+}
+#TabsToolbar {
+	margin-right: var(--uc-navigationbar-width);
+}
+#toolbar-menubar[autohide="true"]>.titlebar-buttonbox-container,
+#tabbrowser-tabs,
+.tabbrowser-tab[pinned] {
+	height: var(--uc-toolbar-height) !important;
+	min-height: var(--uc-toolbar-height) !important;
+}
+#nav-bar {
+	/* where to display nav-bar */
+	margin-left: calc(100vw - var(--uc-navigationbar-width));
+	margin-top: calc(0px - var(--uc-toolbar-height));
+}
+/* Override style set in window_control_placeholder_support.css */
+#nav-bar {
+	border-left-width: 0px !important
+}
+#nav-bar::before {
+	display: none !important
+}
+/* Rules specific to window controls on right layout */
+@supports -moz-bool-pref("layout.css.osx-font-smoothing.enabled") {
+	:root:not([inFullscreen]) #TabsToolbar-customization-target>.titlebar-spacer[type="pre-tabs"] {
+		width: var(--uc-window-drag-space-width) !important;
+		display: -moz-box !important;
+	}
+	#TabsToolbar>.titlebar-buttonbox-container {
+		display: -moz-box;
+	}
+}
+/* 1px margin on touch density causes tabs to be too high */
+.tab-close-button {
+	margin-top: 0 !important
+}
+/* Hide dropdown placeholder */
+#urlbar-container:not(:hover) .urlbar-history-dropmarker {
+	margin-inline-start: -28px;
+}
+/* Fix customization view */
+#customization-panelWrapper>.panel-arrowbox>.panel-arrow {
+	margin-inline-end: initial !important;
+}
+#nav-bar {
+	max-height: 32px !important;
+
+	background: #1c1b22 !important;
+
+}
+

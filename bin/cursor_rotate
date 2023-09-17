@@ -1,0 +1,32 @@
+#!/usr/bin/bash
+
+# width height
+W=1920
+H=1080
+# step
+S=5
+# Padding left etc.
+PL=10
+PR=10
+PT=30
+PB=10
+rotate () {
+	i=$PT
+	j=$PL
+for (( ; j<=$W-$PR; j=$j+$S)); do
+	xdotool mousemove $j $i; sleep 0.001
+done
+for (( ; i<=$H-$PB; i=$i+$S)); do
+	xdotool mousemove $j $i; sleep 0.001;
+done
+for (( ; j>=$PL; j=$j-$S)); do
+	xdotool mousemove $j $i; sleep 0.001;
+done
+for (( ; i>=$PT; i=$i-$S)); do
+	xdotool mousemove $j $i; sleep 0.001;
+done
+}
+while true; do
+	rotate
+done
+exit 0

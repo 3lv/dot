@@ -1,0 +1,7 @@
+[user]
+	name = 3lv
+	email = cristian.vlad.vladutu@gmail.com
+[credential]
+	helper = store
+[core]
+	excludesfile = /home/vlad/.config/git/.gitignore

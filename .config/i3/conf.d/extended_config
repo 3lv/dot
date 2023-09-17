@@ -1,0 +1,27 @@
+# APPEARANCE {{{
+gaps inner 10
+gaps outer 4
+font pango:monospace 10
+default_border pixel 0
+for_window [class="^.*"] border pixel 0
+default_floating_border pixel 0
+# Colors
+# class                 border  backgr. text    indicator child_border
+client.focused          #4cff99 #285577 #ffffff #962d4c   #962d4c
+client.focused_inactive #333333 #5f676a #ffffff #00000000 #00000000
+client.unfocused        #333333 #222222 #888888 #00000000 #00000000
+client.urgent           #2f343a #900000 #ffffff #900000   #900000
+client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
+# }}}
+# STARTUP {{{
+# Wallpaper
+exec_always --no-startup-id feh --bg-scale ~/images/wallpapers/JapaneseNight.jpg
+# Status bar
+exec_always --no-startup-id polybar
+# Window Compositor
+exec_always --no-startup-id picom --config ~/.config/picom/picom.conf
+# Cursor animation
+exec --no-startup-id /home/vlad/bin/toggle_cursor
+## }}}
+
+# vi:fdm=marker

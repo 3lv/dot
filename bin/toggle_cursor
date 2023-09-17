@@ -1,0 +1,11 @@
+#!/usr/bin/bash
+
+ON_FILE="/tmp/cursor_rotate_on"
+if [[ -f "$ON_FILE" ]]; then
+	rm $ON_FILE
+	pkill &>/dev/null "cursor_rotate"
+	exit 0
+fi
+touch "$ON_FILE"
+(/home/vlad/bin/cursor_rotate &>/dev/null &)
+exit 0

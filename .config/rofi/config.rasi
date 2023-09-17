@@ -1,0 +1,68 @@
+configuration {
+ display-drun: "Applications: ";
+ modi: "window,drun,combi";
+ font: "FiraMono Nerd Font 12";
+ combi-modi: "window,drun,ssh";
+ show-icons: true;
+ drun-display-format: "{icon} {name}";
+ }
+@theme "/dev/null"
+* {
+    foreground:                  #58697BFF;
+    foreground2:                 #FFFFFFFF;
+    background:                  #090611CC;
+    pink:                        #962D4CCC;
+
+    spacing:                     2;
+    separatorcolor:              none;
+    border-color: @pink;
+    background-color:            #00000000;
+    text-color: @foreground;
+}
+#window {
+    background-color: @background;
+    border:           2;
+    padding:          20;
+	width:			30%;
+}
+#mainbox {
+    border:  0;
+    padding: 10;
+}
+#textbox {
+    text-color: @foreground;
+}
+#listview {
+    fixed-height: 0;
+    border:       0px 0px 0px ;
+    spacing:      2px ;
+    scrollbar:    true;
+    padding:      2px 0px 0px ;
+}
+#element {
+    border:  0;
+    padding: 15px 15px ;
+}
+#element.selected {
+    background-color: @pink;
+    text-color:       @foreground2;
+}
+#element-text.selected {
+    text-color:       @foreground2;
+}
+#scrollbar {
+    width:        0 ;
+    border:       0;
+    handle-width: 0px ;
+    padding:      0;
+}
+#sidebar {
+    border:       0px 0px 0px ;
+}
+#inputbar {
+    spacing:    0;
+    padding:    10px 20px 20px;
+	margin: 0px 0px 15px;
+	border: 0px 0px 2px;
+	border-color: @pink;
+}

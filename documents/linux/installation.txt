@@ -1,0 +1,31 @@
+rfkill unblock wlan
+iwctl
+station <wlan> connect <"network name">
+
+timedatectl #ensure system clock accurate
+
+fdisk
+n +1G t 1        # /dev/part1
+n     t 23       # /dev/part2
+mkfs.fat -F 32 /dev/part1
+mkfs.ext4 /dev/part2
+
+mount /dev/part2 /mnt
+mount --mkdir /dev/part1 /mnt/boot
+
+pacstrap -K /mnt base linux linux-firware
+genfstab -U /mnt >> /mnt/etc/fstab
+arch-chroot /mnt
+
+ln -sf /usr/share/zoneinfo/Europe/Bucharest /etc/localtime
+hwclock -w
+vim /etc/locale.gen       # /en_U x ZZ
+locale-gen
+# echo LANG=en_US.UTF-8 > /etc/locale.conf
+localectl set-locale LANG=en_US.UTF-8
+
+echo cauldron > /etc/hostname
+passwd
+useradd -m -g users -G wheel vlad
+passwd vlad
+visudo # /% xx ZZ

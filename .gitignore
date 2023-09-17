@@ -1,0 +1,66 @@
+/*
+
+# .cofig files/dirs
+!.config/
+.config/*
+# dirs
+!.config/alacritty
+!.config/git
+!.config/i3
+!.config/mutt
+!.config/neofetch
+!.config/picom
+!.config/polybar
+!.config/rofi
+# files
+!.config/userChrome.css
+!.config/userChromeNOGUI.css
+
+# xdg non compliants
+!.w3m
+.w3m/*
+!.w3m/config
+!.w3m/keymap
+
+# fonts
+!.local/
+.local/*
+!.local/share
+.local/share/*
+!.local/share/fonts/
+
+!bin/
+bin/*
+!bin/cursor_rotate
+!bin/mkcpp
+!bin/notes
+!bin/printcolors
+!bin/random
+!bin/scratchpad
+!bin/tester.sh
+!bin/toggle_cursor
+# binaries
+!bin/typer
+
+# wallpapers
+!images/
+images/*
+!images/wallpapers/
+images/wallpapers/*
+!images/wallpapers/JapaneseNight.jpg
+
+# templates
+!documents/
+documents/*
+!documents/templates/
+!documents/linux/
+
+# files
+!.bashrc
+!.chestiirandom.sh
+!.gitconfig
+!.gitignore
+!.install.sh
+!.packages.txt
+!.xinitrc
+!.Xresources

@@ -1,0 +1,17 @@
+systemctl enable systemd-networkd
+systemctl start systemd-networkd
+systemctl enable systemd-resolved
+systemctl start systemd-resolved
+# optional^?
+
+ip addr # to see network device name
+
+# /etc/systemd/network/20-wired.network
+# [Match]
+# Name=device_name
+#
+# [Network]
+# DHCP=yes
+
+systemctl restart systemd-networkd
+systemctl restart systemd-resolved

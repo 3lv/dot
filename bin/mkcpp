@@ -1,0 +1,22 @@
+#!/usr/bin/bash
+
+if [ $# -eq 0 ]
+then
+  echo "No project name"
+elif [ $# -eq 1 ]
+then
+  if [ -d "$PWD/$1" ]
+  then
+    echo "Directory already exists"
+  else
+    mkdir $1
+    cd $1
+    cp ~/documents/templates/main.cpp $1.cpp
+    touch $1.in
+    touch $1.out
+    touch .ccls
+    mkdir .builds
+  fi
+else
+  echo "Too many arguments"
+fi

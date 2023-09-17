@@ -1,0 +1,2 @@
+file="$HOME/documents/templates/citate.txt"
+echo $(shuf -n 1 $file)
