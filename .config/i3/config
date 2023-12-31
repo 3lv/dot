@@ -1,5 +1,1 @@
-include conf.d/keybinds
-include conf.d/minimal_config
-#include conf.d/extended_config
-
-# vi:fdm=marker
+/home/vlad/.config/i3/config_1

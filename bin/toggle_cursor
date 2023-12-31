@@ -1,11 +1,10 @@
 #!/usr/bin/bash
 
 ON_FILE="/tmp/cursor_rotate_on"
+
 if [[ -f "$ON_FILE" ]]; then
-	rm $ON_FILE
-	pkill &>/dev/null "cursor_rotate"
+	/home/vlad/bin/stop_cursor &>/dev/null &
 	exit 0
 fi
-touch "$ON_FILE"
-(/home/vlad/bin/cursor_rotate &>/dev/null &)
-exit 0
+
+/home/vlad/bin/cursor_rotate &>/dev/null &

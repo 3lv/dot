@@ -3,5 +3,5 @@
 file_name='~/.chestiirandom.sh'
 if [ $# -eq 0 ]
 then
-	alacritty --class="__notes" -e $SHELL -lc "sleep 0.1 && nvim ${file_name}"
+	alacritty --class="__notes" -e $SHELL -lc "sleep 0.1 && nvim -n ${file_name}"
 fi

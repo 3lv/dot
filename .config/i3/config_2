@@ -1,0 +1,4 @@
+include conf.d/keybinds
+include conf.d/extended_config
+
+# vi:fdm=marker ft=i3config

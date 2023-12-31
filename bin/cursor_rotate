@@ -1,5 +1,11 @@
 #!/usr/bin/bash
 
+ON_FILE="/tmp/cursor_rotate_on"
+if [[ -f "$ON_FILE" ]]; then
+	exit 1
+fi
+echo "$$" > "$ON_FILE"
+
 # width height
 W=1920
 H=1080

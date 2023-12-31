@@ -14,14 +14,18 @@ client.urgent           #2f343a #900000 #ffffff #900000   #900000
 client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 # }}}
 # STARTUP {{{
+# Run flameshot in background for copy to clipboard to work
+exec_always --no-startup-id flameshot
 # Wallpaper
-exec_always --no-startup-id feh --bg-scale ~/images/wallpapers/JapaneseNight.jpg
+#exec_always --no-startup-id feh --bg-scale ~/images/wallpapers/JapaneseNight.jpg
+exec_always --no-startup-id pkill -9 xwinwrap; sleep 0.2; xwinwrap -ov -g 1920x1080 -- mpv -wid %WID --panscan=1.0 --no-audio --no-osc --no-osd-bar --no-input-default-bindings --loop ~/images/wallpapers/.current
 # Status bar
-exec_always --no-startup-id polybar
+exec_always --no-startup-id pkill -9 polybar; polybar
 # Window Compositor
-exec_always --no-startup-id picom --config ~/.config/picom/picom.conf
+exec_always --no-startup-id pkill -9 picom; sleep .05; picom --config ~/.config/picom/picom.conf
 # Cursor animation
-exec --no-startup-id /home/vlad/bin/toggle_cursor
+exec_always --no-startup-id sleep 0.3; pkill unclutter; ~/bin/cursor_rotate
+
 ## }}}
 
-# vi:fdm=marker
+# vi:fdm=marker ft=i3config
