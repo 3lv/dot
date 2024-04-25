@@ -23,10 +23,10 @@
 !.w3m/keymap
 
 # fonts
-!.local/
-.local/*
-!.local/share
-.local/share/*
+#!.local/
+#.local/*
+#!.local/share
+#.local/share/*
 !.local/share/fonts/
 
 !bin/
