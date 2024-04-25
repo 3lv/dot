@@ -1,0 +1,49 @@
+#!/usr/bin/bash
+
+wallpaper_file="/home/vlad/images/wallpapers/.current"
+wallpaper_dir="$(dirname $wallpaper_file)"
+wallpapers=($(ls -p $wallpaper_dir | grep -v /))
+
+current_wallpaper=$(basename $(readlink -f "$wallpaper_file"))
+
+# args: val arr
+get_index () {
+	if [[ $# -lt 2 ]]; then
+		return -1
+	fi
+	val=$1
+	shift
+	arr=($@)
+	for i in "${!arr[@]}"; do
+		if [[ "${arr[$i]}" = "${val}" ]]; then
+			return $i
+		fi
+	done
+	return -1
+}
+
+get_index $current_wallpaper ${wallpapers[@]}
+idx=$?
+
+if [[ $1 == -1 ]]; then
+	next_idx=$((idx - 1))
+	if [[ $next_idx -eq -1 ]]; then
+		next_idx = $((${#wallpapers[@]} - 1))
+	fi
+else
+	next_idx=$((idx + 1))
+	if [[ $next_idx -eq ${#wallpapers[@]} ]]; then
+		next_idx=0
+	fi
+fi
+
+next_wallpaper=${wallpapers[$next_idx]}
+ext=${next_wallpaper##*.}
+
+cd $wallpaper_dir
+ln -sf "$next_wallpaper" ".current"
+
+pkill -9 xwinwrap
+xwinwrap -ov -g 1920x1080 -- mpv -wid %WID --panscan=1.0 --no-audio --no-osc --no-osd-bar --no-input-default-bindings --loop ".current"
+
+# vi: ft=bash

@@ -1,4 +1,5 @@
 #!/bin/bash
+
 arch_packages=(\
 	base\
 	base-devel\
@@ -22,6 +23,7 @@ extended_arch_packages=(\
 	nasm\
 	neofetch\
 	neomutt\
+	neovim\
 	noto-fonts\
 	npm\
 	os-prober\
@@ -37,6 +39,7 @@ ubuntu_packages=(\
 	git\
 	tree\
 	w3m\
+	libfuse2\
 )
 
 DISTRO=$(lsb_release -is)

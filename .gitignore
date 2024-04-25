@@ -39,15 +39,24 @@ bin/*
 !bin/scratchpad
 !bin/tester.sh
 !bin/toggle_cursor
+!bin/i3-config-next
+!bin/wallpaper-next
 # binaries
-!bin/typer
+#!bin/typer
 
 # wallpapers
-!images/
-images/*
-!images/wallpapers/
-images/wallpapers/*
-!images/wallpapers/JapaneseNight.jpg
+#!images/
+#images/*
+#!images/wallpapers/
+#images/wallpapers/*
+#!images/wallpapers/abstract.mp4
+#!images/wallpapers/bergenbier.png
+#!images/wallpapers/black.png
+#!images/wallpapers/BoomerangAngel.gif
+#!images/wallpapers/JapaneseNight.jpg
+#!images/wallpapers/psy.mp4
+#!images/wallpapers/Tree.png
+#!images/wallpapers/woman.mp4
 
 # templates
 !documents/

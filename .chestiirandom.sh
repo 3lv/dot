@@ -363,6 +363,8 @@ ps -U USER # list all processes owned by user "USER"
 ps --ppid PID # list child processes of PID
 #systemctl kill -s HUP systemd-logind
 
+cat /proc/meminfo | grep "Dirty" # Total cached data (usefull to find dd actual remaining data)
+
 # Ports
 sudo ss -tulpn # list all opened ports
 sudo iptables -S # list current rules
@@ -422,6 +424,9 @@ filefrag -v 'file' #show logical/physical_offset of extents of a file
 efibootmgr -v #show all boot entries
 efibootmgr -b xxxx -B  #delete boot entry number 'xxxx'
 
+# Limit user resources
+sudo systemctl set-property user-1001.slice MemoryMax=4G CPUQuota=100%
+
 # Grub
 grub-install --target=x86_64-efi --efi-directory=esp --bootloader-id=GRUB
 # config: edit /etc/default/grub and run
@@ -460,6 +465,13 @@ xwinwrap -ov -g 1920x1080 -- mpv -wid %WID --panscan=1.0 --no-audio --no-osc --n
 # 1.enable it in bios
 # edit wol serive
 # sudo systemctl edit wol.service --full --force
+
+# Errors{{{
+#
+# To provide domain name resolution for software that reads /etc/resolv.conf directly, such as web browsers, Go and GnuPG, systemd-resolved has four different modes for handling the file—stub, static, uplink and foreign. They are described in systemd-resolved(8) § /ETC/RESOLV.CONF. We will focus here only on the recommended mode, i.e. the stub mode which uses /run/systemd/resolve/stub-resolv.conf
+ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
+#
+# }}}
 
 ## Windows{{{
 # In powershell $Env:USERPROFILE is equiv to %USERPROFILE% for cmd

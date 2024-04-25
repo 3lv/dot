@@ -13,8 +13,6 @@ if [[ $TERM == 'linux' ]]; then
         blue="\001\e[1;34m\002"
 fi # }}}
 
-export PATH="~/bin:$PATH"
-export EDITOR="nvim"
 # export PS1 # {{{
 PS1=""
 PS1+="${green}["
@@ -25,9 +23,14 @@ PS1+="${reset}\$ "      # $ or # for sudo
 #[user@host ~]$
 export PS1 # }}}
 
+export PATH="~/bin:$PATH"
+export EDITOR="nvim"
+
 alias ls='ls --color=auto'
 alias grep='grep --color=auto' # --exclude-dir={.git,node_modules}
 alias w3m_d='w3m duckduckgo.com'
  
+
 # vi:fdm=marker
+
 . "$HOME/.cargo/env"

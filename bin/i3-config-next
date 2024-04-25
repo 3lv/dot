@@ -1,0 +1,20 @@
+#!/usr/bin/bash
+
+config_file="/home/vlad/.config/i3/config"
+config_format="$(dirname $config_file)/config_"
+
+r=$(readlink -f "$config_file")
+
+no=$(basename $r | sed 's/config_\([0-9]\+\)/\1/')
+no=$((no + 1))
+next_config="${config_format}${no}"
+if [[ ! -f "$next_config" ]]; then
+	no=1
+	next_config="${config_format}${no}"
+fi
+
+ln -sf "$next_config" "$config_file"
+i3-msg restart
+
+
+# vi: ft=bash
