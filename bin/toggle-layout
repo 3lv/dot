@@ -1,0 +1,32 @@
+#!/bin/bash
+
+layouts=(
+    "us"
+    "ro std"
+    #"fr"
+)
+
+current_layout=$(setxkbmap -query | grep layout | awk '{print $2}')
+current_variant=$(setxkbmap -query | grep variant | awk '{print $2}')
+
+if [[ -n "$current_variant" ]]; then
+    current_combined="$current_layout $current_variant"
+else
+    current_combined="$current_layout"
+fi
+
+next_index=0
+for i in "${!layouts[@]}"; do
+    if [[ "${layouts[$i]}" == "$current_combined" ]]; then
+        next_index=$(( (i + 1) % ${#layouts[@]} ))
+        break
+    fi
+done
+
+next_layout=${layouts[$next_index]}
+echo "$next_layout"
+setxkbmap $next_layout
+
+echo "Switched to layout: $next_layout"
+
+# vi: ft=bash

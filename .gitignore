@@ -41,6 +41,7 @@ bin/*
 !bin/toggle_cursor
 !bin/i3-config-next
 !bin/wallpaper-next
+!bin/toggle-layout
 # binaries
 #!bin/typer
 
