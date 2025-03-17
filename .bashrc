@@ -23,6 +23,7 @@ PS1+="${reset}\$ "      # $ or # for sudo
 #[user@host ~]$
 export PS1 # }}}
 
+PATH="$PATH":"$HOME/.pub-cache/bin"
 export PATH="~/bin:$PATH"
 export EDITOR="nvim"
 
@@ -30,6 +31,8 @@ alias ls='ls --color=auto'
 alias grep='grep --color=auto' # --exclude-dir={.git,node_modules}
 alias w3m_d='w3m duckduckgo.com'
  
+
+source "$HOME/.api_keys.sh"
 
 # vi:fdm=marker
 

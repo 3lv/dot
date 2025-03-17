@@ -15,9 +15,14 @@ client.urgent           #2f343a #900000 #ffffff #900000   #900000
 client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 # }}}
 # Startup {{{
+# Display
+exec_always --no-startup-id xrandr --output HDMI-1 --left-of eDP-1
+# exec_always --no-startup-id xrandr --output HDMI-1 --auto --scale 2x2 --output eDP-1 --auto --pos 2560x0
+exec_always --no-startup-id xrandr --output eDP-1 --primary
+
 # Run flameshot in background for copy to clipboard to work
 exec_always --no-startup-id flameshot
-# Window Compositor
+
 exec_always --no-startup-id pkill -9 polybar
 
 exec_always --no-startup-id pkill -9 xwinwrap; feh --bg-scale ~/images/wallpapers/black.png

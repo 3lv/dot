@@ -1,15 +1,35 @@
 exit
 # TODO
+# IMPORTANT
+# Sort this file
+# nvim: fix starting position in file
+# OTHER:
 # nvim: fix colorscheme ttyscheme 		DONE
 # nvim: implement screenkeys plugin using:	DONE
 # typer: implement linked lists with root	----
 # fix: screenkeys < displays as <lt>		DONE
-# fix: screenkeys: check how function on_key changes
-# fix: display script: xset from different user ----
-# i3-config-next: background doesn't revent to black
+# fix: screenkeys: check how function on_key
+# progresses                                    ----
+# fix: display script: xset from different user (not sure if needed anymore)
+# learn better vim undo commands (undo marks?)
 #
 # Sequent Microsystems
 # fix 8mosind wiki? (it is 8mosfets wiki)
+# Will need soon
+# {
+#'updated_at': ((new Date()).toISOString()).toLocaleString('zh-TW')
+# Megaind and Ioplus?
+# Enable opto cnt for home assistant by running the command at ###setup###
+# and contact for Megabas
+#
+#
+# Look into:
+# 7. Real-World Implementations
+
+#    Existing Systems: Technologies like IEEE 802.15.6 define low-power, short-range communication for BANs, achieving data rates from 10 kbps to 10 Mbps.
+#    Use Cases: Healthcare (e.g., wearable sensors), authentication (e.g., touch-based devices), and data exchange between wearables.
+##}
+
 
 
 #Fix nuphy function keys (apple compatibility) (TODO add to startup)
@@ -40,6 +60,8 @@ echo 255 | sudo tee /sys/class/backlight/amdgpu_bl1/brightness
 DISPLAY=:0 firefox # start firefox in active xsession
 
 # VIM {{{
+# :dig s, 537
+# :set ts=2 sts=2 sw=2 et
 # :lua print(vim.inspect(vim.api.nvim_list_uis()))
 # :call chanclose(id)
 # :lua for _, ui in pairs(vim.api.nvim_list_uis()) do print(ui.chan .. ui.term_name) end
@@ -199,6 +221,7 @@ stty -echo; echo -e "\033[6n"; read -d \[ x; read -d R x; stty echo; echo $x # c
 ## initialize git
 git config --global user.name "first_name last_name"
 git config --global user.email "e@mail.com"
+git config --global credential.helper store
 git clone https://www.github.com/3lv/dot
 git init # (create new git repo)
 git remote add origin url # (add origin variable for easier push)
@@ -324,6 +347,12 @@ sudo pacman -Sy archlinux-keyring
 sudo pacman-key --refresh-keys
 sudo pacman -Ssq "regex"
 grep upgraded /var/log/pacman.log # removed, installed
+
+/etc/pacman.conf # pacman configuration: Ignore specific package upgrade etc.
+
+sudo reflector --latest 5 --protocol https --sort rate --save /etc/pacman.d/mirrorlist # refresh mirrors
+sudo pacman -Syyu
+
 # }}}
 
 # Reverse shell {{{
@@ -350,8 +379,8 @@ gnuplot --slow -p -e 'plot "plot.dat" using 1:2 with lines; pause -1'
 # using "Age":"Height"
 
 # Interact with services (daemons)
-systemctl start
-# stop/enable/disable
+systemctl start # stop/enable/disable
+systemctl enable --now # enable and start
 
 # Process
 pgrep -lP PID # list child process
@@ -372,6 +401,7 @@ sudo iptables -P FORWARD DROP
 
 # Sudo
 sudo -k
+# Reset password timeout
 faillock --user vlad --reset
 
 # Wifi
@@ -406,6 +436,10 @@ cat file_name | xsel -ib
 # Querry
 xset -q # querry keyboard rate/powersave display
 xrandr | grep connected
+
+# displays
+xrandr --output HDMI-1 --left-of eDP-1 # Not tested
+xrandr --output screen-name --scale 0.8x0.8
 # }}}
 
 fdisk -l #list partition table
@@ -418,6 +452,9 @@ mkfs.exfat -n xd /dev/sda1 # best
 mount | grep /dev
 mount -o remount,exec /dev
 
+# get LABEL, UUID, BLOCK_SIZE, TYPE of a partition
+blkid /dev/sda1
+
 free # to check ram/swap
 filefrag -v 'file' #show logical/physical_offset of extents of a file
 # Boot entry
@@ -426,6 +463,9 @@ efibootmgr -b xxxx -B  #delete boot entry number 'xxxx'
 
 # Limit user resources
 sudo systemctl set-property user-1001.slice MemoryMax=4G CPUQuota=100%
+
+# CPU info (cpu cores, address sizes)
+cat /proc/cpuinfo
 
 # Grub
 grub-install --target=x86_64-efi --efi-directory=esp --bootloader-id=GRUB
@@ -449,8 +489,32 @@ bear -- make # generates a compile_commands.json (used by ccls lsp)
 # /proc/PID/task # directory for each thread of the process (can find child processes)
 
 # mysql
-mariadb -e "show variables like 'datadir'"
+# Initialize mariadb
+sudo mariadb-install-db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
+sudo chown -R mysql:mysql /var/lib/mysql # Fix permissions
+# Path where every database is stored: /var/lib/mysql
+#
+
+mariadb -e "show variables like 'datadir'";
+sudo mariadb -u root -p;
+SHOW DATABASES;
+CREATE DATABASE <database-name>;
+USE db_name;
+SHOW GRANTS FOR user@host;
+GRANT ALL PRIVILEGES ON database_name.* TO 'user'@'%' IDENTIFIED BY 'password'; # % means any host
+REVOKE ALL PRIVILEGES ON database_name.* TO 'user'@'%' IDENTIFIED BY 'password'; # % means any host
 # sql: "ALTER TABLE global_messages CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;"
+#
+
+
+GRANT ALL PRIVILEGES ON *.* TO 'admin'@'localhost' IDENTIFIED VIA unix_socket WITH GRANT OPTION
+
+
+FLUSH PRIVILEGES # Good only if modifying the grant tables directly using statements such as INSERT, UPDATE or DELETE
+
+# postgresql
+psql 'postgres://localhsot/diesel_db'
+pgadmin4 # from venv (and then go to http://127.0.0.1:5050)
 
 # create ssl key
 openssl req -x509 -newkye rsa:4096 -keyout key.pem -out cert.pem -days 365
@@ -461,16 +525,101 @@ i3-msg "[workspace=2] kill"
 # video background
 xwinwrap -ov -g 1920x1080 -- mpv -wid %WID --panscan=1.0 --no-audio --no-osc --no-osd-bar --no-input-default-bindings --loop ~/images/wallpapers/angel.gif
 
+# Audio/ Volume (pipewire-puse)
+pactl set-sink-volume 0 50% # Set volume to 50%
+pactl get-sink-volume 0
+pavucontrol # GUI Audio manager
+
+# Json
+curl $API | jq -r ".user.id" # -r is for raw output
+
 # Wake on LAN
 # 1.enable it in bios
 # edit wol serive
 # sudo systemctl edit wol.service --full --force
+
+# Nvim {{{
+# # Make from source
+# Arch linux
+sudo pacman -S base-devel cmake unzip ninja curl
+# # Ubuntu/Debian {{{
+sudo apt remove neovim
+sudo apt-get install ninja-build gettext cmake unzip curl build-essential
+make CMAKE_BUILD_TYPE=RelWithDebInfo
+ls
+cd build
+cpack -G DEB
+sudo dpkg -i --force-overwrite  nvim-linux64.deb
+# }}}
+# # Macos {{{
+# xcode-select --install
+# brew install ninja cmake gettext curl
+# }}}
+# }}}
+
+# Arch linux {{{
+# ## PKGBUILD
+pkgname=NAME
+pkgver=VERSION
+pkgrel=1
+pkgdesc='DESCRIPTION'
+url=http://example.com/
+arch=('x86_64')
+license=('GPL2')
+source=(http://example.com/downloads/${pkgname}-${pkgver}.tar.gz)
+sha256sums=('f0a90db8694fb34685ecd645d97d728b880a6c15c95e7d0700596028bd8bc0f9')
+
+build() {
+   cd "${srcdir}/${pkgname}-${pkgver}"
+   ./configure
+   make
+}
+
+package() {
+   cd "${srcdir}/${pkgname}-${pkgver}"
+   make install
+}
+#
+# }}}
+
+# Docker {{{
+docker ps # Get all running containers
+docker exec -it container-i bash # runs command inside docker container
+docker run --rm your_image pip freeze # ^ same but start and stop the container
+
+#WARNING! This will remove:
+#    - all stopped containers
+#    - all volumes not used by at least one container
+#    - all networks not used by at least one container
+#    - all images without at least one container associated to them
+#Are you sure you want to continue? [y/N]
+docker system prune
+
+docker-compose build --no-cache --pull <container-name>
+
+#Multiuser
+sudo usermod -aG docker $USER
+docker context ls
+docker context use default
+
+
+# }}}
+
+# GPU {{{
+nvtop # Nice gpu process monitor
+nvidia-smi # Display devices and processes
+# }}}
 
 # Errors{{{
 #
 # To provide domain name resolution for software that reads /etc/resolv.conf directly, such as web browsers, Go and GnuPG, systemd-resolved has four different modes for handling the file—stub, static, uplink and foreign. They are described in systemd-resolved(8) § /ETC/RESOLV.CONF. We will focus here only on the recommended mode, i.e. the stub mode which uses /run/systemd/resolve/stub-resolv.conf
 ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
 #
+# }}}
+
+# Virtual machine {{{
+quickget macos ventura
+quickemu --vm macos-ventura.conf
 # }}}
 
 ## Windows{{{
@@ -489,5 +638,19 @@ ssh cauldron
 #
 #
 # }}}
+
+# Flutter {{{
+flutter run
+flutter doctor
+flutter pub upgrade --major-versions
+# }}}
+
+# Java {{{
+archlinux-java status
+# }}}
+
+# Interesting websites {{{
+http://fakeimg.pl
+#}}}
 
 # vi:fdm=marker:ft=sh:

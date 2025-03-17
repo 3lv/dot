@@ -1,4 +1,5 @@
 # set mod key to windows_key
+
 set $mod Mod4
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -38,6 +39,16 @@ set $ws17 "17"
 set $ws18 "18"
 set $ws19 "19"
 set $ws20 "20"
+workspace $ws1 output DP-1
+workspace $ws2 output DP-1
+workspace $ws3 output DP-1
+workspace $ws4 output DP-1
+workspace $ws5 output DP-1
+workspace $ws6 output DP-1
+workspace $ws7 output DP-1
+workspace $ws8 output DP-1
+workspace $ws9 output DP-1
+workspace $ws10 output DP-1
 # TODO use all ws when getting another monitor
 # switch to workspace
 bindsym $mod+1 workspace number $ws1
@@ -64,6 +75,8 @@ bindsym $mod+Shift+9 move container to workspace number $ws9
 bindsym $mod+Shift+0 move container to workspace number $ws10
 bindsym $mod+Shift+minus move container to workspace number $ws11
 # }}}
+bindsym $mod+Control+Shift+h move workspace to output left
+bindsym $mod+Control+Shift+l move workspace to output right
 # Resize {{{
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -122,9 +135,12 @@ bindsym $mod+Right exec --no-startup-id /home/vlad/bin/i3-config-next
 bindsym $mod+Up exec --no-startup-id /home/vlad/bin/wallpaper-next
 bindsym $mod+Down exec --no-startup-id /home/vlad/bin/wallpaper-next -1
 
+bindsym $mod+u exec --no-startup-id /home/vlad/bin/toggle-layout
+
 bindsym $mod+slash exec --no-startup-id rofi -show drun
 bindsym $mod+Return exec --no-startup-id alacritty
 bindsym $mod+Shift+s exec --no-startup-id flameshot gui
+bindsym $mod+Shift+t exec --no-startup-id flameshot gui --raw | tesseract stdin stdout | xsel -ib
 bindsym $mod+i exec --no-startup-id /home/vlad/bin/scratchpad
 for_window [class="__scratchpad"] floating enable
 bindsym $mod+n exec --no-startup-id /home/vlad/bin/notes

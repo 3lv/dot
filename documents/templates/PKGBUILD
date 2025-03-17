@@ -1,0 +1,15 @@
+pkgname="package-name"
+pkgver="1.0.0"
+pkgdesc="description"
+arch=("x86_64")
+license=("Apache 2.0")
+
+source=("source")
+sha512sums=("SKIP")
+
+package() {
+  echo 'Hello to you!' > "${srcdir}/hello-world.sh"
+  mkdir -p "${pkgdir}/usr/bin"
+  cp "${srcdir}/hello-world.sh" "${pkgdir}/usr/bin/hello-world"
+  chmod +x "${pkgdir}/usr/bin/hello-world"
+}
