@@ -145,6 +145,8 @@ bindsym $mod+i exec --no-startup-id /home/vlad/bin/scratchpad
 for_window [class="__scratchpad"] floating enable
 bindsym $mod+n exec --no-startup-id /home/vlad/bin/notes
 for_window [class="__notes"] floating enable
+for_window [class="__notes"] sticky enable
+for_window [class="__notes"] resize set 1600 1000
 bindsym $mod+m exec --no-startup-id firefox --no-remote --class=AppleMusic -P 'no-gui' 'https://music.apple.com/ro/'
 for_window [class="AppleMusic"] floating enable
 for_window [class="AppleMusic"] sticky enable
@@ -154,6 +156,15 @@ bindsym $mod+y exec --no-startup-id xsel -o > /home/vlad/.clipboard
 bindsym $mod+p exec --no-startup-id cat /home/vlad/.clipboard | xsel -ib
 # TODO make this actually work 
 # bindsym $mod+u exec --no-startup-id xprop
+# }}}
+
+# Laptop {{{
+# Fix invert scrolling
+exec_always xinput set-prop "ASUE140D:00 04F3:31B9 Touchpad" "libinput Tapping Enabled" 1
+#exec_always xinput set-button-map "ASUE140D:00 04F3:31B9 Touchpad" 1 2 3 5 4 7 6
+exec_always xinput set-button-map "ASUE140D:00 04F3:31B9 Touchpad" 1 2 3 4 5 6 7
+exec_always xinput set-prop "ASUE140D:00 04F3:31B9 Touchpad" "libinput Natural Scrolling Enabled" 1
+
 # }}}
 
 # vi:fdm=marker ft=i3config
