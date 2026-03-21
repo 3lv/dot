@@ -353,6 +353,9 @@ grep upgraded /var/log/pacman.log # removed, installed
 sudo reflector --latest 5 --protocol https --sort rate --save /etc/pacman.d/mirrorlist # refresh mirrors
 sudo pacman -Syyu
 
+git clone https://aur.archlinux.org/yay; cd yay
+makepkg -si
+
 # }}}
 
 # Reverse shell {{{
@@ -378,9 +381,18 @@ gnuplot -e "set terminal dumb size $(tput cols), $(tput lines); plot \"plot.data
 gnuplot --slow -p -e 'plot "plot.dat" using 1:2 with lines; pause -1'
 # using "Age":"Height"
 
+# Systemd
 # Interact with services (daemons)
 systemctl start # stop/enable/disable
 systemctl enable --now # enable and start
+
+systemctl status service_name
+systemctl list-timers
+
+# Important dirs
+/etc/systemd/system/name.service
+/etc/systemd/system/name.timer
+
 
 # Process
 pgrep -lP PID # list child process
@@ -411,6 +423,81 @@ station wlan0 scan
 station wlan0 get-networks
 station wlan0 connect <"netowork name">
 [security]
+
+# Advanced
+# Sniffing
+iw list # Show loads of info about network card
+lspci -nnk | grep -A 3 "Network" # network controller name + driver
+iw dev
+sudo iw phy phy0 interface add mon0 type monitor flags control otherbss
+ip a # Should show the new interface
+sudo ip link set mon0 up
+# Optional, to change channel, must disconnect from the managed interface
+sudo systemctl stop NetworkManager # Optional
+sudo pkill wpa_supplicant
+sudo airmon-ng check kill # Kill everything that is using it
+sudo ip link set wlp1s0 down # Optional
+sudo iw dev mon0 set channel 6 # Optional
+sudo tcpdump -I -i mon0 -nn -e
+# -I monitor mode
+# -i mon0, pick interface
+# -nn # No name resolution twice: (no ip->names, no port to protocol)
+# -e # Print link-layer header(MAC + frame type info etc.)
+sudo systemctl start NetworkManager && sudo ip link set wlp1s0 up # Optional
+sudo tcpdump -I -i mon0 -nn -e 'type mgt subtype beacon' # Networks sharing SSID, rates, channel, capabilities, timing etc
+sudo tcpdump -I -i mon0 -nn -e 'not (type mgt subtype beacon)'
+sudo tcpdump -I -i mon0 -nn -e 'type mgt subtype auth or type mgt subtype assoc-req or type mgt subtype assoc-resp'
+# other management(mgt) subtypes: prob-req prob-resp # Asking responging for is network here
+sudo tcpdump -I -i mon0 -nn -e 'type data'
+# Most common channels:
+# 2.4GHz: 1, 6, 11
+# 5GHz: 
+# UNII-1: 36, 40, 44, 48
+# UNII-2(dfs): 52, 56, 60, 64
+# UNII-2e(dfs): 100,104,...,144
+# UNII-3: 149, 153, 157, 161
+#to find channel use
+nmcli dev wifi list
+nmcli dev wifi connect 14:89:CB:1F:B1:B0
+# or force it to stay on that
+nmcli connection modify "ASK4 WiFi" 802-11-wireless.bssid 14:89:CB:1F:B1:B0
+sudo iw dev wlan0 scan | grep -A15 -i 'aa:bb:cc:dd:ee:ff'
+airodump-ng mon0 # 2.4 GHz
+airodump-ng --band a mon0
+# Specific channel
+airodump-ng -c 11 mon0
+# ASK4-WIFI basecamp: 100 (DFS 5GHz)
+# RA = Receiver Address
+# TA -> transmitter, DA = Destination, SA -> Source, BSSID = AP's MAC
+# To DA and From DA indicate the direction
+# ff:ff:ff:ff:ff:ff = broadcast
+# Use wireshark for more advanced features
+#
+# aircrack-ng
+aireplay-ng --deauth 1 -a $TARGET_BSSID $adapter
+
+# Enable ip forwarding (i.e be like a router):
+sysctl -w net.ipv4.ip_forward=1
+sysctl -w net.ipv6.conf.all.forwarding=1
+# For persistency add in /etc/sysctl.conf
+
+# Disable icmp redirects: (i.e don't inform there might be a shorter route availably by skipping the proxy)
+sysctl -w net.ipv4.conf.all.send_redirects=0
+
+# Redirect traffic
+iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 8080
+iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 443 -j REDIRECT --to-port 8080
+ip6tables -t nat -A PREROUTING -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 8080
+ip6tables -t nat -A PREROUTING -i eth0 -p tcp --dport 443 -j REDIRECT --to-port 8080
+
+# Flush ruleset (clear ruleset)
+iptables -t nat -F
+
+
+# Create hotspot:
+# sudo create_ap -c wlp1s0 wlp1s0 hostpostname hostpostpassword
+
+
 
 # Xorg {{{
 # Keyboard
@@ -537,6 +624,11 @@ curl $API | jq -r ".user.id" # -r is for raw output
 # 1.enable it in bios
 # edit wol serive
 # sudo systemctl edit wol.service --full --force
+#
+# Firewall (nft, nftables){{{
+nft flush ruleset # Disable current ruleset
+nft -f /etc/nftables.conf # (Reanable)
+# }}}
 
 # Nvim {{{
 # # Make from source
@@ -652,5 +744,15 @@ archlinux-java status
 # Interesting websites {{{
 http://fakeimg.pl
 #}}}
+
+## Laptop
+xinput list
+xinput list-props "ASUE140D:00 04F3:31B9 Touchpad"
+xinput set-prop "ASUE140D:00 04F3:31B9 Touchpad" "libinput Tapping Enabled" 1
+xinput get-button-map "ASUE140D:00 04F3:31B9 Touchpad"
+xinput set-button-map "ASUE140D:00 04F3:31B9 Touchpad" 1 2 3 5 4 7 6
+
+
+
 
 # vi:fdm=marker:ft=sh:
