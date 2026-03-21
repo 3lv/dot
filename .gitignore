@@ -42,6 +42,7 @@ bin/*
 !bin/i3-config-next
 !bin/wallpaper-next
 !bin/toggle-layout
+!bin/mount_windows
 # binaries
 #!bin/typer
 

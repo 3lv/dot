@@ -1,0 +1,56 @@
+Find the disk to mount to wsl
+
+```pws
+# In powershell:
+ GET-CimInstance -query "SELECT * from Win32_DiskDrive"
+```
+
+
+Run powershell as administrator to have mount permisions
+```pwd
+# Mount the device id, usually PHYSICLADRIVE1
+wsl --mount \\.\PHYSICALDRIVE1 --bare
+# Then start wsl
+wsl
+```
+
+## Install dependencies:
+
+```bash
+sudo pacman -S cryptsetup arch-install-scripts
+```
+
+## Find partition:
+```
+sudo fdisk -l
+# or
+sudo lsblk
+```
+
+
+```bash
+sudo cryptsetup luksOpen /dev/sde2 cryptlvm
+```
+
+```bash
+# FInd and activate all volume groups:
+
+sudo pvscan
+sudo vgchange -ay
+```
+
+```bash
+# Mount them:
+sudo mkdir -p /mnt/arch_root
+sudo mount /dev/mapper/vg0-root /mnt/arch_root
+sudo mount /dev/mapper/vg0-home /mnt/arch_root/home
+# Mount the windows C partition:
+sudo mkdir -p /mnt/arch_root/mnt/c
+sudo mount --bind /mnt/c /mnt/arch_root/mnt/c
+```
+
+```bash
+# Login
+sudo arch-chroot /mnt/arch_root
+su - vlad
+```
