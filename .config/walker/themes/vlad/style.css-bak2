@@ -1,0 +1,85 @@
+/* Walker theme — clean minimal, white selection, dark bg */
+
+* {
+    all: unset;
+    font-family: "JetBrainsMono Nerd Font", monospace;
+    font-size: 13px;
+    color: #aaaaaa;
+}
+
+window {
+    background: transparent;
+}
+
+.box-wrapper {
+    background:    rgba(12, 12, 12, 0.97);
+    border:        1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    min-width:     520px;
+    padding:       0;
+}
+
+entry {
+    color:        #dddddd;
+    font-size:    14px;
+    padding:      16px 20px;
+    caret-color:  #ffffff;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+entry placeholder {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+/* Result rows */
+row {
+    padding:    8px 20px;
+    min-height: 36px;
+}
+
+row:selected,
+row:hover {
+    background: rgba(255, 255, 255, 0.07);
+    color:      #ffffff;
+}
+
+/* App name on selected row */
+row:selected label,
+row:hover label {
+    color: #ffffff;
+}
+
+/* App icon */
+image {
+    min-width:    20px;
+    min-height:   20px;
+    margin-right: 10px;
+}
+
+/* Bottom action buttons (open+next / pin / start) */
+.keybinds {
+    padding:       8px 20px;
+    border-top:    1px solid rgba(255, 255, 255, 0.05);
+    font-size:     11px;
+    color:         rgba(255, 255, 255, 0.25);
+}
+
+button {
+    background:    rgba(255, 255, 255, 0.06);
+    border:        1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 4px;
+    padding:       2px 8px;
+    color:         rgba(255, 255, 255, 0.4);
+    font-size:     11px;
+}
+
+scrollbar {
+    min-width:  3px;
+    background: transparent;
+}
+
+scrollbar slider {
+    background:    rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    min-width:     3px;
+}

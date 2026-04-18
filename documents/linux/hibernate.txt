@@ -33,6 +33,11 @@ sudo vim /etc/default/grub
 #
 #
 # add the resume module in /etc/mkinitcpio.conf
+# If using luks/lvm, make sure it is after them
 # HOOKS="bla bla bla resume"
 sudo vim /etc/mkinitcpio.conf
 mkinitcpio -p linux
+
+
+If swapfile is actually partition, get uuid with:
+lsblk -f /dev/partition

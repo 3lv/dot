@@ -1,0 +1,73 @@
+/* Import Omarchy base (skip this if not on Omarchy) */
+/* @import "../../../../.local/share/omarchy/default/walker/themes/omarchy-default/style.css"; */
+
+/* === Dark Walker Theme === */
+
+@define-color bg_dark       rgba(12, 12, 14, 0.92);
+@define-color bg_surface    rgba(22, 22, 26, 0.95);
+@define-color bg_selected   rgba(40, 40, 50, 1.0);
+@define-color fg_primary    rgba(220, 220, 230, 1.0);
+@define-color fg_muted      rgba(120, 120, 140, 1.0);
+@define-color accent        rgba(120, 100, 220, 1.0);
+@define-color border_subtle rgba(255, 255, 255, 0.07);
+
+window {
+  background: transparent;
+}
+
+.box-wrapper {
+  background: @bg_dark;
+  border: 1px solid @border_subtle;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+}
+
+entry {
+  background: @bg_surface;
+  color: @fg_primary;
+  border: 1px solid @border_subtle;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 14px;
+  caret-color: @accent;
+}
+
+entry:focus {
+  border-color: @accent;
+  outline: none;
+}
+
+.item {
+  background: transparent;
+  color: @fg_primary;
+  border-radius: 6px;
+  padding: 6px 10px;
+}
+
+.item:selected,
+.item:hover {
+  background: @bg_selected;
+  color: @fg_primary;
+}
+
+.item .label {
+  color: @fg_primary;
+  font-size: 13px;
+}
+
+.item .sub {
+  color: @fg_muted;
+  font-size: 11px;
+}
+
+/* Scrollbar */
+scrollbar {
+  background: transparent;
+}
+
+scrollbar slider {
+  background: @border_subtle;
+  border-radius: 4px;
+  min-width: 4px;
+}

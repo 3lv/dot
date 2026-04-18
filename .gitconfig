@@ -5,3 +5,5 @@
 	helper = store
 [core]
 	excludesfile = /home/vlad/.config/git/.gitignore
+[safe]
+	directory = /mnt/local_repos/zen_profile.git

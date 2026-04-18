@@ -1,0 +1,91 @@
+/* Walker — minimal, based on working all:unset version + row fix */
+
+* {
+    all: unset;
+    font-family: "JetBrainsMono Nerd Font", monospace;
+    font-size:   13px;
+    color:       #888888;
+}
+
+window {
+    background: transparent;
+}
+
+.box-wrapper {
+    background:    rgba(11, 11, 11, 0.97);
+    border:        1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 8px;
+    min-width:     500px;
+    padding:       0;
+}
+
+/* ── Input ── */
+entry {
+    display:       block;
+    color:         #cccccc;
+    font-size:     14px;
+    padding:       15px 20px;
+    caret-color:   #ffffff;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+entry placeholder {
+    color: rgba(255, 255, 255, 0.18);
+}
+
+/* ── Rows ── */
+/* Restore box display so icons + text sit side by side */
+row {
+    display:        flex;
+    flex-direction: row;
+    align-items:    center;
+    padding:        0 20px;
+    min-height:     44px;
+    border-bottom:  1px solid rgba(255, 255, 255, 0.04);
+}
+
+row:last-child {
+    border-bottom: none;
+}
+
+row:hover,
+row:selected {
+    background: rgba(255, 255, 255, 0.07);
+    color:      #ffffff;
+}
+
+row:hover *,
+row:selected * {
+    color: #ffffff;
+}
+
+/* ── Icon ── */
+image {
+    min-width:    22px;
+    min-height:   22px;
+    margin-right: 14px;
+}
+
+/* ── Labels ── */
+label {
+    white-space: nowrap;
+    color:       #999999;
+}
+
+/* ── Bottom bar — hide it entirely ── */
+.keybinds,
+box > box:last-child {
+    display: none;
+}
+
+/* ── Scrollbar ── */
+scrollbar {
+    min-width:  3px;
+    background: transparent;
+}
+
+scrollbar slider {
+    background:    rgba(255, 255, 255, 0.08);
+    border-radius: 2px;
+    min-width:     3px;
+}

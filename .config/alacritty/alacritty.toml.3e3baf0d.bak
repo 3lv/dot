@@ -30,9 +30,7 @@ background = "#000000"
 foreground = "#a0a0a0"
 
 [font]
-#size = 9.5
-# For hyprland
-size = 16
+size = 9.5
 
 [font.bold]
 family = "FiraMono Nerd Font"
@@ -91,8 +89,3 @@ opacity = 0.8
 [window.padding]
 x = 0
 y = 0
-
-[[keyboard.bindings]]
-key = "Return"
-mods = "Shift"
-chars = "\u001B\r"

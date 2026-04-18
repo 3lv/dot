@@ -1,0 +1,140 @@
+#!/bin/bash
+
+# ── Directories to ignore ────────────────────────────────────────────────────
+IGNORE_DIRS=(".openclaw" ".cache" "node_modules" ".Trash")
+
+# ── Colors & Styles ──────────────────────────────────────────────────────────
+RESET="\033[0m"
+BOLD="\033[1m"
+DIM="\033[2m"
+
+RED="\033[38;5;203m"
+GREEN="\033[38;5;114m"
+YELLOW="\033[38;5;221m"
+BLUE="\033[38;5;75m"
+CYAN="\033[38;5;80m"
+MAGENTA="\033[38;5;177m"
+ORANGE="\033[38;5;215m"
+GRAY="\033[38;5;245m"
+WHITE="\033[38;5;255m"
+
+# ── Build find exclusion args ────────────────────────────────────────────────
+exclude_args=()
+for dir in "${IGNORE_DIRS[@]}"; do
+  exclude_args+=(-not -path "*/$dir/*")
+done
+
+# ── Collect repos ────────────────────────────────────────────────────────────
+declare -a REPO_PATHS
+declare -a REPO_DATES
+
+mapfile -t git_dirs < <(find ~ -name ".git" -type d -prune "${exclude_args[@]}" 2>/dev/null)
+
+# ── Header ───────────────────────────────────────────────────────────────────
+echo ""
+echo -e "${BOLD}${WHITE}  ███ GIT OVERVIEW${RESET}  ${GRAY}$(date '+%a %d %b %Y  %H:%M')${RESET}"
+echo -e "${GRAY}  ─────────────────────────────────────────────────────${RESET}"
+echo ""
+
+total=0
+dirty=0
+unpushed_total=0
+no_remote=0
+
+for gitdir in "${git_dirs[@]}"; do
+  repo="${gitdir%/.git}"
+  name=$(basename "$repo")
+
+  uncommitted=$(git -C "$repo" status --porcelain 2>/dev/null)
+  unpushed=$(git -C "$repo" log --branches --not --remotes --oneline 2>/dev/null)
+  branch=$(git -C "$repo" rev-parse --abbrev-ref HEAD 2>/dev/null)
+  has_remote=$(git -C "$repo" remote 2>/dev/null)
+  last_commit_date=$(git -C "$repo" log -1 --format="%cr" 2>/dev/null)
+  last_commit_ts=$(git -C "$repo" log -1 --format="%ct" 2>/dev/null)
+  commit_count=$(git -C "$repo" rev-list --count HEAD 2>/dev/null)
+
+  ((total++))
+  [[ -n "$uncommitted" ]] && ((dirty++))
+  [[ -n "$unpushed" ]]    && ((unpushed_total++))
+  [[ -z "$has_remote" ]]  && ((no_remote++))
+
+  # Track for summary (store path + timestamp for sorting)
+  REPO_PATHS+=("$repo")
+  REPO_DATES+=("${last_commit_ts:-0}")
+
+  # ── Skip clean repos with remotes ────────────────────────────────────────
+  if [[ -z "$uncommitted" && -z "$unpushed" && -n "$has_remote" ]]; then
+    continue
+  fi
+
+  # ── Repo name + branch ───────────────────────────────────────────────────
+  echo -ne "  ${BOLD}${CYAN}${name}${RESET}  ${DIM}${GRAY}${repo/$HOME/\~}${RESET}"
+  echo -ne "  ${BLUE}⎇ ${branch}${RESET}"
+  [[ -n "$last_commit_date" ]] && echo -ne "  ${GRAY}${last_commit_date}${RESET}"
+  [[ -n "$commit_count" ]]     && echo -ne "  ${DIM}${GRAY}${commit_count} commits${RESET}"
+  echo ""
+
+  # ── Status badges ────────────────────────────────────────────────────────
+  echo -ne "    "
+  if [[ -z "$has_remote" ]]; then
+    echo -ne "${MAGENTA}◆ no remote${RESET}  "
+  fi
+  if [[ -n "$uncommitted" ]]; then
+    staged=$(echo "$uncommitted"    | grep -c "^[MADRCU]" || true)
+    unstaged=$(echo "$uncommitted"  | grep -c "^.[MD]"    || true)
+    untracked=$(echo "$uncommitted" | grep -c "^??"       || true)
+    [[ $staged    -gt 0 ]] && echo -ne "${YELLOW}● staged:${staged}${RESET}  "
+    [[ $unstaged  -gt 0 ]] && echo -ne "${ORANGE}◌ modified:${unstaged}${RESET}  "
+    [[ $untracked -gt 0 ]] && echo -ne "${GRAY}? untracked:${untracked}${RESET}  "
+  fi
+  if [[ -n "$unpushed" ]]; then
+    count=$(echo "$unpushed" | wc -l | tr -d ' ')
+    echo -ne "${RED}↑ unpushed:${count}${RESET}  "
+  fi
+  echo ""
+  echo ""
+done
+
+# ── Summary bar ──────────────────────────────────────────────────────────────
+echo -e "${GRAY}  ─────────────────────────────────────────────────────${RESET}"
+echo -e "  ${BOLD}${WHITE}Summary${RESET}  ${GRAY}scanned ${total} repos${RESET}"
+echo -ne "    "
+echo -ne "${CYAN}${total} total${RESET}  "
+echo -ne "${RED}↑ ${unpushed_total} unpushed${RESET}  "
+echo -ne "${YELLOW}● ${dirty} dirty${RESET}  "
+echo -ne "${MAGENTA}◆ ${no_remote} no-remote${RESET}"
+echo -e "\n"
+
+# ── Most recently touched repos ───────────────────────────────────────────────
+echo -e "  ${BOLD}${WHITE}Recent Activity${RESET}  ${GRAY}(last 5 repos touched)${RESET}"
+echo -e "${GRAY}  ─────────────────────────────────────────────────────${RESET}"
+
+# Sort by timestamp descending, take top 5
+mapfile -t sorted_indices < <(
+  for i in "${!REPO_DATES[@]}"; do
+    echo "${REPO_DATES[$i]} $i"
+  done | sort -rn | head -5 | awk '{print $2}'
+)
+
+rank=1
+for i in "${sorted_indices[@]}"; do
+  repo="${REPO_PATHS[$i]}"
+  name=$(basename "$repo")
+  branch=$(git -C "$repo" rev-parse --abbrev-ref HEAD 2>/dev/null)
+  commit_count=$(git -C "$repo" rev-list --count HEAD 2>/dev/null || echo "?")
+  last_date=$(git -C "$repo" log -1 --format="%ad" --date=format:'%d %b %Y' 2>/dev/null)
+  last_msg=$(git -C "$repo" log -1 --format="%s" 2>/dev/null | cut -c1-48)
+
+  # Rank color
+  case $rank in
+    1) RC="${YELLOW}";;
+    2) RC="${WHITE}";;
+    3) RC="${ORANGE}";;
+    *) RC="${GRAY}";;
+  esac
+
+  echo -e "  ${RC}${BOLD}#${rank}${RESET}  ${BOLD}${CYAN}${name}${RESET}  ${BLUE}⎇ ${branch}${RESET}  ${GREEN}${commit_count} commits${RESET}  ${GRAY}${last_date}${RESET}"
+  echo -e "      ${DIM}${GRAY}↳ ${last_msg}${RESET}"
+  echo ""
+  ((rank++))
+done

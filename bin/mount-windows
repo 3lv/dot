@@ -41,7 +41,9 @@ if [ -n "$TARGET_PART" ]; then
     echo "Heuristic match found! Windows partition is at: $TARGET_PART"
     
     # Attempt to mount
-    mount "$TARGET_PART" "$TARGET_MOUNT"
+    #mount "$TARGET_PART" "$TARGET_MOUNT"
+    #Mount as user 1000
+    mount -o uid=1000,gid=1000,dmask=0022,fmask=0133 "$TARGET_PART" "$TARGET_MOUNT"
     
     if [ $? -eq 0 ]; then
         echo "Success: Mounted $TARGET_PART to $TARGET_MOUNT"

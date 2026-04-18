@@ -1,0 +1,12 @@
+[top-edge]
+
+enter_command = ["killall", "-SIGUSR1", "waybar"]
+exit_command = ["killall", "-SIGUSR1", "waybar"]
+
+# - for corners: top_left, top_right, bottom_right, and bottom_left;
+# - for edges: top, bottom, right, left.
+locations = ["top"]
+
+size = 2        # px strip at the top edge that triggers it
+
+timeout_ms = 0        # debounce

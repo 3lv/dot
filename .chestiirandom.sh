@@ -1,4 +1,6 @@
 exit
+exit
+exit
 # TODO
 # IMPORTANT
 # Sort this file
@@ -29,6 +31,7 @@ exit
 #    Existing Systems: Technologies like IEEE 802.15.6 define low-power, short-range communication for BANs, achieving data rates from 10 kbps to 10 Mbps.
 #    Use Cases: Healthcare (e.g., wearable sensors), authentication (e.g., touch-based devices), and data exchange between wearables.
 ##}
+# Take a look at nm command
 
 
 
@@ -296,7 +299,10 @@ du # disk usage for files ( -m MB format, -g GB, -h human readable)
 df # mounted partitions, filesystems sizes (-h hr^, can pass file and shows the specific partition)
 history # ( can use !num afterwords)
 ps # process status (ax all processes, aux, | grep procname, -t /dev/tty2 by tty name)
-top # ( -o mem sort by memory usage, )
+top
+ # ( h - help, P - sort by cpu, M - sort by mem, f Open - open field manager, )
+ # ( c - toggle full command path, V- process hierarchy, space/return force refresh)
+ # ( i - toggle idle, which usually clears it up very well)
 kill # (-l list SIGCODES)
 killall name
 jobs # list all jobs
@@ -342,16 +348,19 @@ id # uid groupid and groups
 # }}}
 
 # pacman{{{
-sudo pacman -Syu
-sudo pacman -Sy archlinux-keyring
-sudo pacman-key --refresh-keys
-sudo pacman -Ssq "regex"
+pacman -Sy # Update database from mirrors
+pacman -Syu # Do a system wise update
+
+pacman -Sy archlinux-keyring
+pacman-key --refresh-keys
+pacman -Ssq "regex"
 grep upgraded /var/log/pacman.log # removed, installed
 
 /etc/pacman.conf # pacman configuration: Ignore specific package upgrade etc.
 
-sudo reflector --latest 5 --protocol https --sort rate --save /etc/pacman.d/mirrorlist # refresh mirrors
-sudo pacman -Syyu
+reflector --latest 5 --protocol https --sort rate --verbose --save /etc/pacman.d/mirrorlist # Get fastest mirrors
+
+pacman -Syyu # Force refresh of databases (use new mirrors) + system update
 
 git clone https://aur.archlinux.org/yay; cd yay
 makepkg -si
@@ -382,12 +391,20 @@ gnuplot --slow -p -e 'plot "plot.dat" using 1:2 with lines; pause -1'
 # using "Age":"Height"
 
 # Systemd
+systemctl daemon-reload # Recognize new files
 # Interact with services (daemons)
 systemctl start # stop/enable/disable
 systemctl enable --now # enable and start
 
 systemctl status service_name
 systemctl list-timers
+
+# List all active services (in /etc/systemd/system or /usr/lib/systemd/system)
+systemctl  list-units --type=service
+# List ALL
+systemctl  list-units --type=service --all
+# These do not include the user services (installed in ~/.config/systemd/user or /etc/systemd/user or /usr/lib/systemd/user)
+systemctl --user list-units --type=service
 
 # Important dirs
 /etc/systemd/system/name.service
@@ -424,7 +441,11 @@ station wlan0 get-networks
 station wlan0 connect <"netowork name">
 [security]
 
-# Advanced
+# Easier:
+nmtui # And just connect
+# Connect to eduroam
+nmcli con add   type wifi   con-name "eduroam"   ssid "eduroam"   wifi-sec.key-mgmt wpa-eap   802-1x.eap peap   802-1x.phase2-auth mschapv2   802-1x.identity "auxxx@uni.au.dk"   802-1x.password "xxxx"   802-1x.ca-cert "~/.eduroam/au.pem"
+
 # Sniffing
 iw list # Show loads of info about network card
 lspci -nnk | grep -A 3 "Network" # network controller name + driver
@@ -613,8 +634,22 @@ i3-msg "[workspace=2] kill"
 xwinwrap -ov -g 1920x1080 -- mpv -wid %WID --panscan=1.0 --no-audio --no-osc --no-osd-bar --no-input-default-bindings --loop ~/images/wallpapers/angel.gif
 
 # Audio/ Volume (pipewire-puse)
+# pipewire: new and good, pulseaudio old deprecated
+# pacman -Qs pipewire pulseaudio # And remove anything pulseaudio related
+# alsamixer 
+# alsactl store # Persist across reboots
+systemctl --user status pipewire pipewire-pulse wireplumber
+# pipewire-pulse (compatibility with apps expecting pulse, which are many)
+# wireplumber (The actual brain, chooses default sink, routes, volume states etc)
+#
+# via pipewire-pulse (pa = pulseaudio)
 pactl set-sink-volume 0 50% # Set volume to 50%
 pactl get-sink-volume 0
+# wireplumber cli:
+# wpctl status
+# wpctl get-volume @DEFAULT_SINK@
+# wpctl set-volume @DEFAULT_SINK@ 5%+
+# also using pipewire-pulse
 pavucontrol # GUI Audio manager
 
 # Json
@@ -702,6 +737,30 @@ nvtop # Nice gpu process monitor
 nvidia-smi # Display devices and processes
 # }}}
 
+# Root directory structure (hierarchy)  (man hier) {{{
+# /etc: System wide condifugration files
+#### Software & Programs ###
+# /usr(User System Resources): Installed software, utilities, shared libraries and documentation for all users on the system
+## Kept for historical reason
+#   /bin(Binaries): Essential command line tools
+#   /sbin(System Binaries): (Meant for system admin)
+#   > Usually they link to /usr/bin
+# /usr/local # Software not managed by os. Always remember that macOS is gay.
+# ~/.local/ # For user local (XDG compliant)
+# /opt (Optional): Meant for third-parties, monolithic, or proprietary software that doesn't split it's file across the standard filesystem
+### System Data & State
+# /var(variable): Variable size files: /var/log/ system logs
+# /tmp(Temporary)
+# /dev(Devices)
+#      /dev/shm (legacy shared memory)
+# /run (The processes) # It is a tmpfs (i.e in ram)
+# Check tmpfs:
+# df -h -t tmpfs
+### Virtual Filesystems
+# /proc(Processes) # Ex: /proc/cpuinfo
+# /sys(System): similar to /proc, but specifically to interact and configure
+# }}}
+
 # Errors{{{
 #
 # To provide domain name resolution for software that reads /etc/resolv.conf directly, such as web browsers, Go and GnuPG, systemd-resolved has four different modes for handling the file—stub, static, uplink and foreign. They are described in systemd-resolved(8) § /ETC/RESOLV.CONF. We will focus here only on the recommended mode, i.e. the stub mode which uses /run/systemd/resolve/stub-resolv.conf
@@ -712,23 +771,6 @@ ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
 # Virtual machine {{{
 quickget macos ventura
 quickemu --vm macos-ventura.conf
-# }}}
-
-## Windows{{{
-# In powershell $Env:USERPROFILE is equiv to %USERPROFILE% for cmd
-#
-#
-# Configure ssh key login
-ssh-keygen
-notepad .ssh/config
-# Host cauldron
-# 	Hostname 188.25.125.61
-# 	Port 64002
-# 	User star
-type .ssh/id_rsa.pub | ssh cauldron "mkdir -p .ssh; cat >> .ssh/authorized_keys"
-ssh cauldron
-#
-#
 # }}}
 
 # Flutter {{{
@@ -745,7 +787,7 @@ archlinux-java status
 http://fakeimg.pl
 #}}}
 
-## Laptop
+## Laptop {{{
 xinput list
 xinput list-props "ASUE140D:00 04F3:31B9 Touchpad"
 xinput set-prop "ASUE140D:00 04F3:31B9 Touchpad" "libinput Tapping Enabled" 1
@@ -753,6 +795,79 @@ xinput get-button-map "ASUE140D:00 04F3:31B9 Touchpad"
 xinput set-button-map "ASUE140D:00 04F3:31B9 Touchpad" 1 2 3 5 4 7 6
 
 
+# lid closed behaviour hibernate:
+# edit /etc/systemd/logind.conf
+#  These are the 3 things to modify
+#  #HandleLidSwitch=suspend
+#  HandleLidSwitch=hibernate
+#  #HandleLidSwitchExternalPower=suspend
+#  HandleLidSwitchExternalPower=hibernate
+#  #HandleLidSwitchDocked=ignore
+#  HandleLidSwitchDocked=hibernate
+
+# }}}
+
+# Uncategorized {{{
+# Choose a license website
+# https://choosealicense.com/
+# }}}
+
+# time {{{
+timedatectl set-ntp true
+timedatectl list-timezones | grep -i copenhagen
+# Equivalent to searching the /usr/share/zoneinfo
+# }}}
+
+## Windows{{{
+# In powershell $Env:USERPROFILE is equiv to %USERPROFILE% for cmd
+#
+#
+# Configure ssh key login
+ssh-keygen
+notepad .ssh/config
+# Host cauldron
+# 	Hostname 188.25.125.61
+# 	Port 64002
+# 	User star
+type .ssh/id_rsa.pub | ssh cauldron "mkdir -p .ssh; cat >> .ssh/authorized_keys"
+ssh cauldron
+ssh-copy-id user@host
+#
+#
+# }}}
+
+# Desktop environments (DE)
+# Display server (X11/ Wayland)
+# Toolkits:
+#  - GTK (DEs: GNOME, XFCE)
+#  - Qt (KDE)
+# Heavyness:
+# GNOVE > KDE > XFCE
+#
+# File explorer:
+# Dolphin (KDE/Qt)
+# Nautilus (GTK based)
+#
+#
+
+# XDG {{{
+# x desktop something
+# conventions for openining mimetypes, .desktop, etc
+# xdg-open . # Runing nautilus . breaks, use xdg-open . instead
+# System-wide
+# /usr/share/applcations/mimeinfo.cache
+# desktop-specific ones
+# ~/.local/share/applications/mimeapps.list
+# User config ones
+# ~/.config/mimeapps.llist
+#
+# set xdg mime
+# xdg-mime default org.gnome.Nautilus.desktop inode/directory
+# # to launch, use gio launch /usr/share/application/org.gnome.Nautilus.desktop args
+#
+
+
+# Called still resume in hooks
 
 
 # vi:fdm=marker:ft=sh:

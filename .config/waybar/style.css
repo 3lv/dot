@@ -1,0 +1,152 @@
+@import "/usr/lib/hyprwhspr/config/waybar/hyprwhspr-style.css";
+/* =============================================================================
+   Waybar style — dark minimal, #ffffff instead of #4cff99 accent (matches your i3/hyprland border)
+   Autohide: bar sits at margin-top: -32px by default, slides down on hover
+   ============================================================================= */
+
+* {
+    font-family: "JetBrainsMono Nerd Font", "Monospace", monospace;
+    font-size: 12px;
+    border: none;
+    border-radius: 0;
+    min-height: 0;
+    padding: 0;
+    margin: 0;
+}
+
+/* ── Main bar ─────────────────────────────────────────────────────────────── */
+window#waybar {
+    background-color: rgba(14, 14, 14, 0.92);
+    color: #cccccc;
+    /*
+    border-bottom: 1px solid rgba(76, 255, 153, 0.15);
+    */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+
+    /* Autohide: slide up out of view */
+    /* transition: margin-top 0.25s ease; */
+    /* margin-top: -32px; */
+    /* opacity: 0.1; */
+    transition: opacity 0.25s ease;
+}
+
+/* Reveal on hover — the bar slides back down */
+window#waybar:hover {
+    opacity: 1.0;
+    /*margin-top: 0px;*/
+}
+
+/* ── Workspaces ───────────────────────────────────────────────────────────── */
+#workspaces {
+    margin: 0 4px;
+    padding: 0;
+}
+
+#workspaces button {
+    padding: 0 8px;
+    color: #555555;
+    background: transparent;
+    border-bottom: 2px solid transparent;
+    transition: all 0.15s ease;
+    min-width: 0;
+}
+
+#workspaces button:hover {
+    color: #aaaaaa;
+    background: rgba(255, 255, 255, 0.05);
+    border-bottom: 2px solid rgba(76, 255, 153, 0.4);
+}
+
+#workspaces button.active {
+    /*
+    color: #4cff99;
+    border-bottom: 2px solid #4cff99;
+    */
+    color: #ffffff;
+    border-bottom: 2px solid #ffffff;
+    font-weight: bold;
+}
+
+#workspaces button.urgent {
+    color: #ff5555;
+    border-bottom: 2px solid #ff5555;
+}
+
+/* ── Window title ─────────────────────────────────────────────────────────── */
+#window {
+    color: #888888;
+    font-size: 11px;
+    padding: 0 12px;
+}
+
+/* ── Shared module style ──────────────────────────────────────────────────── */
+#clock,
+#battery,
+#network,
+#pulseaudio,
+#tray {
+    padding: 0 10px;
+    color: #aaaaaa;
+}
+
+/* ── Clock ────────────────────────────────────────────────────────────────── */
+#clock {
+    /*
+    color: #4cff99;
+    */
+    color: #ffffff;
+    font-weight: bold;
+}
+
+/* ── Battery ──────────────────────────────────────────────────────────────── */
+#battery.warning {
+    color: #f1c40f;
+}
+
+#battery.critical {
+    color: #ff5555;
+    animation: blink 1s linear infinite;
+}
+
+#battery.charging {
+    /*
+    color: #4cff99;
+    */
+    color: #ffffff;
+}
+
+@keyframes blink {
+    to { opacity: 0.3; }
+}
+
+/* ── Network ──────────────────────────────────────────────────────────────── */
+#network.disconnected {
+    color: #555555;
+}
+
+/* ── Audio ────────────────────────────────────────────────────────────────── */
+#pulseaudio.muted {
+    color: #555555;
+}
+
+/* ── Tray ─────────────────────────────────────────────────────────────────── */
+#tray {
+    padding: 0 8px;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+    color: #f1c40f;
+}
+
+/* ── Separator between right modules ─────────────────────────────────────── */
+#clock,
+#battery,
+#network,
+#pulseaudio {
+    border-left: 1px solid rgba(255, 255, 255, 0.06);
+}

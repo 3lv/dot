@@ -1,0 +1,73 @@
+/* ~/.config/walker/themes/vlad/style.css
+   Dark minimal theme matching your #4cff99 accent */
+
+@define-color window_bg_color  rgba(12, 12, 12, 0.95);
+@define-color accent_color     #4cff99;
+@define-color text_color       #cccccc;
+@define-color dim_color        #555555;
+@define-color hover_bg         rgba(76, 255, 153, 0.07);
+@define-color border_color     rgba(76, 255, 153, 0.18);
+
+/* ── Window / outer box ───────────────────────────────────────────────────── */
+.box-wrapper {
+    background:    @window_bg_color;
+    border:        1px solid @border_color;
+    border-radius: 6px;
+    padding:       12px;
+    min-width:     480px;
+}
+
+/* ── Search input ─────────────────────────────────────────────────────────── */
+entry {
+    background:    transparent;
+    color:         @text_color;
+    border:        none;
+    border-bottom: 1px solid @border_color;
+    border-radius: 0;
+    padding:       6px 4px;
+    font-family:   "JetBrainsMono Nerd Font", monospace;
+    font-size:     14px;
+    caret-color:   @accent_color;
+    margin-bottom: 8px;
+}
+
+entry:focus {
+    outline:       none;
+    border-bottom: 1px solid @accent_color;
+}
+
+/* ── Results list ─────────────────────────────────────────────────────────── */
+listview {
+    background: transparent;
+}
+
+/* ── Single result row ────────────────────────────────────────────────────── */
+row {
+    padding:       5px 6px;
+    border-radius: 4px;
+    color:         @text_color;
+    transition:    background 0.1s ease;
+}
+
+row:hover,
+row:selected {
+    background: @hover_bg;
+    color:      @accent_color;
+}
+
+/* ── App name label ───────────────────────────────────────────────────────── */
+.item-label {
+    font-family: "JetBrainsMono Nerd Font", monospace;
+    font-size:   13px;
+}
+
+/* ── App description / sub-label ─────────────────────────────────────────── */
+.item-desc {
+    font-size: 11px;
+    color:     @dim_color;
+}
+
+/* ── App icon ─────────────────────────────────────────────────────────────── */
+image {
+    margin-right: 10px;
+}

@@ -1,0 +1,54 @@
+# ~/.config/walker/config.toml
+# Walker launcher config — replaces rofi -show drun
+
+# Uses the `elephant` providers for these smart and efficient searches
+# elephant listproviders
+# The providers need to be installed separately
+# Needs noto-fonts-emoji for emoji search results
+
+theme = "vlad"
+
+force_keyboard_focus = true
+close_when_open = true
+
+[placeholders]
+"default" = { input = "search...", list = "" }
+
+[providers]
+default = [
+    "desktopapplications",
+    "websearch",
+    "runner",
+    "calc",
+    "files",
+]
+empty = ["desktopapplications"]
+max_results = 256
+
+[applications]
+blacklist = ["Avahi SSH Server Browser", "Avahi VNC Server Browser", "Avahi Zeroconf Browser"]
+
+
+[[providers.prefixes]]
+prefix = "\""
+provider = "clipboard"
+
+[[providers.prefixes]]
+prefix = "."
+provider = "files"
+
+[[providers.prefixes]]
+prefix = "="
+provider = "calc"
+
+[[providers.prefixes]]
+prefix = ";"
+provider = "symbols"
+
+[[providers.prefixes]]
+prefix = "?"
+provider = "websearch"
+
+[[providers.prefixes]]
+prefix = "!"
+provider = "archlinuxpkgs"

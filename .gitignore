@@ -15,6 +15,11 @@
 # files
 !.config/userChrome.css
 !.config/userChromeNOGUI.css
+# hyprland
+!.config/hypr
+!.config/walker
+!.config/waybar
+!.config/waycorner
 
 # xdg non compliants
 !.w3m
@@ -42,9 +47,12 @@ bin/*
 !bin/i3-config-next
 !bin/wallpaper-next
 !bin/toggle-layout
-!bin/mount_windows
+!bin/mount-windows
+!bin/mount-unencrypted
+!bin/git-overview2
 # binaries
 #!bin/typer
+#!bin/sideloader-cli-x86_64-linux-gnu
 
 # wallpapers
 #!images/
@@ -53,7 +61,7 @@ bin/*
 #images/wallpapers/*
 #!images/wallpapers/abstract.mp4
 #!images/wallpapers/bergenbier.png
-#!images/wallpapers/black.png
+!images/wallpapers/black.png
 #!images/wallpapers/BoomerangAngel.gif
 #!images/wallpapers/JapaneseNight.jpg
 #!images/wallpapers/psy.mp4

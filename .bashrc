@@ -30,10 +30,21 @@ export EDITOR="nvim"
 alias ls='ls --color=auto'
 alias grep='grep --color=auto' # --exclude-dir={.git,node_modules}
 alias w3m_d='w3m duckduckgo.com'
- 
 
-source "$HOME/.api_keys.sh"
+export ANDROID_HOME=$HOME/Android/Sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin
+export PATH=$PATH:$ANDROID_HOME/tools/bin
+
+#export PATH=$HOME/.npm-global/bin:$PATH
+source /usr/share/nvm/init-nvm.sh
+
+#source "$HOME/.api_keys.sh"
 
 # vi:fdm=marker
 
 . "$HOME/.cargo/env"
+
+# OpenClaw Completion
+source "/home/vlad/.openclaw/completions/openclaw.bash"
