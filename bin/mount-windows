@@ -1,8 +1,7 @@
 #!/usr/bin/bash
 
-# Ensure the script is run as root
 if [ "$EUID" -ne 0 ]; then
-  echo "Error: Please run this script as root (e.g., sudo ./mount_windows.sh)"
+  echo "Error: Please run this script as root (e.g., sudo ./mount-windows)"
   exit 1
 fi
 
@@ -11,50 +10,80 @@ TARGET_PART=""
 PREV_TYPE=""
 PREV_DISK=""
 
-# Create the mount point if it doesn't exist
 mkdir -p "$TARGET_MOUNT"
 
-# Read block device info: Parent Disk (PKNAME), Partition Path (PATH), and Partition Type (PARTTYPENAME)
-# We use process substitution to feed lsblk output into the while loop
-
-# Microsoft reserved then Microsoft basic data
 while read -r current_disk part_path part_type; do
-    
-    # Check our heuristic:
-    # 1. Current partition is "Microsoft basic data"
-    # 2. Previous partition was "Microsoft reserved"
-    # 3. Both partitions share the same parent disk
     if [[ "$part_type" == "Microsoft basic data" && \
           "$PREV_TYPE" == "Microsoft reserved" && \
           "$current_disk" == "$PREV_DISK" ]]; then
-          
         TARGET_PART="$part_path"
         break
     fi
-    
-    # Store current values for the next iteration's check
     PREV_DISK="$current_disk"
     PREV_TYPE="$part_type"
-
 done < <(lsblk -n -l -p -o PKNAME,PATH,PARTTYPENAME)
 
-# Mount the partition if found
-if [ -n "$TARGET_PART" ]; then
-    echo "Heuristic match found! Windows partition is at: $TARGET_PART"
-    
-    # Attempt to mount read-write, fall back to read-only if Windows is hibernated
-    MOUNT_OPTS="uid=1000,gid=1000,dmask=0022,fmask=0133"
-    if mount -t ntfs-3g -o "$MOUNT_OPTS" "$TARGET_PART" "$TARGET_MOUNT" 2>/dev/null; then
-        echo "Success: Mounted $TARGET_PART to $TARGET_MOUNT (read-write)"
-    elif mount -t ntfs-3g -o "ro,$MOUNT_OPTS" "$TARGET_PART" "$TARGET_MOUNT"; then
-        echo "Warning: Mounted $TARGET_PART to $TARGET_MOUNT READ-ONLY"
-        echo "         Windows Fast Startup is likely enabled. Disable it or do a full Shift+Shutdown."
-    else
-        echo "Error: Failed to mount $TARGET_PART entirely."
-        echo "Possible fix: ntfsfix -d /dev/nvme0n1p3"
-        exit 2
-    fi
-else
-    echo "Error: Could not find a 'Microsoft basic data' partition immediately preceded by a 'Microsoft reserved' partition."
+if [ -z "$TARGET_PART" ]; then
+    echo "Error: Could not find Windows partition."
     exit 1
 fi
+
+echo "Found Windows partition: $TARGET_PART"
+
+MOUNT_OPTS="uid=1000,gid=1000,dmask=0022,fmask=0133"
+
+# ntfs-3g (FUSE-based) works with secure boot — no unsigned kernel module needed.
+# Capture stderr to detect silent read-only fallback due to hibernation.
+MOUNT_ERR=$(mount -t ntfs-3g -o "$MOUNT_OPTS" "$TARGET_PART" "$TARGET_MOUNT" 2>&1)
+MOUNT_RC=$?
+
+if [ $MOUNT_RC -eq 0 ]; then
+    # Verify it actually mounted read-write (ntfs-3g can silently fall back to ro)
+    if findmnt -n -o OPTIONS "$TARGET_MOUNT" 2>/dev/null | grep -qw ro; then
+        echo "Warning: Mounted read-only despite success exit — Windows is likely hibernated."
+        [ -n "$MOUNT_ERR" ] && echo "ntfs-3g: $MOUNT_ERR"
+        MOUNT_RC=1
+        umount "$TARGET_MOUNT" 2>/dev/null
+    else
+        echo "Success: Mounted $TARGET_PART to $TARGET_MOUNT (read-write)"
+        exit 0
+    fi
+fi
+
+# Hibernation detected — offer to clear the dirty flag
+echo ""
+echo "Windows appears to be hibernated (Fast Startup or hibernate)."
+echo "Options:"
+echo "  1) Clear hibernation flag (loses Windows session, allows read-write)"
+echo "  2) Mount read-only"
+echo "  3) Abort"
+read -rp "Choice [1/2/3]: " choice
+
+case "$choice" in
+    1)
+        echo "Clearing hibernation flag with ntfsfix..."
+        if ntfsfix -d "$TARGET_PART"; then
+            if mount -t ntfs-3g -o "$MOUNT_OPTS" "$TARGET_PART" "$TARGET_MOUNT"; then
+                echo "Success: Mounted $TARGET_PART to $TARGET_MOUNT (read-write)"
+            else
+                echo "Error: Still failed to mount read-write after ntfsfix."
+                exit 2
+            fi
+        else
+            echo "Error: ntfsfix failed."
+            exit 2
+        fi
+        ;;
+    2)
+        if mount -t ntfs-3g -o "ro,$MOUNT_OPTS" "$TARGET_PART" "$TARGET_MOUNT"; then
+            echo "Mounted $TARGET_PART to $TARGET_MOUNT (read-only)"
+        else
+            echo "Error: Failed to mount read-only."
+            exit 2
+        fi
+        ;;
+    *)
+        echo "Aborted."
+        exit 1
+        ;;
+esac
