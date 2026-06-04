@@ -164,11 +164,24 @@ z{nr}<CR> # set window height to {nr}
 # Alt+F: Go right (forward) one word.
 # Ctrl+F: Go right (forward) one character.
 # Ctrl+XX: Move between the beginning of the line and the current position of the cursor.
+# Ctrl+] c: Find next char 'c'
+# Ctrl+Alt+] c: Find prev char 'c'
 # 
 ## Deleting Text
 # Ctrl+D or Delete: Delete the character under the cursor.
 # Alt+D: Delete all characters after the cursor on the current line.
 # Ctrl+H or Backspace: Delete the character before the cursor.
+# Ctrl+W: Cut the WORD before the cursor
+# Alt+Backspace: Cut the word before the cursor
+# Ctrl+K: Cut the part of the line after the cursor
+# Ctrl+U: Cut the part of the line before the cursor
+#
+## Pasting
+# Ctrl+Y: Paste the last thing you cut from the clipboard. The y here stands for "yank".
+# Alt+Y: Cycle older cut text
+# Ctrl+.: Paste last argument from last command
+# Alt+*: Paste all command complitions
+#
 # 
 ## Fixing Typos
 # Alt+T: Swap the current word with the previous word.
@@ -176,13 +189,7 @@ z{nr}<CR> # set window height to {nr}
 #   you type two characters in the wrong order.
 # Ctrl+_: Undo your last key press. You can repeat this to undo multiple times.
 # 
-## Cutting and Pasting
-# Ctrl+W: Cut the word before the cursor, adding it to the clipboard.
-# Ctrl+K: Cut the part of the line after the cursor, adding it to the clipboard.
-# Ctrl+U: Cut the part of the line before the cursor, adding it to the clipboard.
-# Ctrl+Y: Paste the last thing you cut from the clipboard. The y here stands for "yank".
-#
-# Ctrl X E to edit command in editor
+# Ctrl X E to edit command in $EDITOR
 ## General use
 # use \ before command to use it without alias
 #
@@ -329,7 +336,7 @@ uptime
 wall "message"
 write user
 mesg y # (receive messages)
-useradd cazan
+useradd cazan # (-m with home)
 passwd
 bc # calculator
 nice -n 19 # change the niceness(priority) of a program
@@ -401,7 +408,7 @@ gnuplot -e "set terminal dumb size $(tput cols), $(tput lines); plot \"plot.data
 gnuplot --slow -p -e 'plot "plot.dat" using 1:2 with lines; pause -1'
 # using "Age":"Height"
 
-# Systemd
+# Systemd {{{
 systemctl daemon-reload # Recognize new files
 # Interact with services (daemons)
 systemctl start # stop/enable/disable
@@ -421,6 +428,25 @@ systemctl --user list-units --type=service
 /etc/systemd/system/name.service
 /etc/systemd/system/name.timer
 
+systemd configs:
+/etc/systemd/*.conf
+#It includes: journald.conf (log storage etc), logind.conf(powerkey, laptop lid close behaviour), user.conf(cpu limits setc)
+#Can be displayed with syntax highlight with bloat systemd-analyze cat-config systemd/journald.conf
+
+# }}}
+
+# Journalctl {{{
+# journalctl
+# journalctl --list-boots # Get boot ids/
+# journalctl --since "2026-05-05 23:34:13" --until "2026-06-06 10:10:10" # Can be copied from the --list-boots
+# journalctl -b -1 -b 0 # Only previous boot and current boot
+#
+# Aditional overview info
+# journalctl --disk-usage
+# journalctl --header
+#
+# }}}
+
 
 # Process
 pgrep -lP PID # list child process
@@ -439,8 +465,8 @@ sudo ss -tulpn # list all opened ports
 sudo iptables -S # list current rules
 sudo iptables -P FORWARD DROP
 
-# Sudo
-sudo -k
+# Login fail
+sudo -k # Invalidate timestamp file
 # Reset password timeout
 faillock --user vlad --reset
 # Check last attempts which may count towards the lockout
@@ -456,8 +482,9 @@ station wlan0 get-networks
 station wlan0 connect <"netowork name">
 [security]
 
-# Easier:
+# Or easier:
 nmtui # And just connect
+
 # Connect to eduroam
 nmcli con add   type wifi   con-name "eduroam"   ssid "eduroam"   wifi-sec.key-mgmt wpa-eap   802-1x.eap peap   802-1x.phase2-auth mschapv2   802-1x.identity "auxxx@uni.au.dk"   802-1x.password "xxxx"   802-1x.ca-cert "~/.eduroam/au.pem"
 
@@ -676,8 +703,13 @@ curl $API | jq -r ".user.id" # -r is for raw output
 # sudo systemctl edit wol.service --full --force
 #
 # Firewall (nft, nftables){{{
+nft list ruleset # List active ruleset
+nft list tables # Shows only tables
 nft flush ruleset # Disable current ruleset
-nft -f /etc/nftables.conf # (Reanable)
+nft -f /etc/nftables.conf # (Enable from file)
+# SECURITY NOTE: /etc/nftables.conf is not a strong deafult
+# Automatically load /etc/nftables.conf on startup
+systemctl enable --now nftables
 # }}}
 
 # Nvim {{{
