@@ -140,11 +140,16 @@ z{nr}<CR> # set window height to {nr}
 #
 ## History
 # Ctrl+R: grep history
+# !! # last command
 # !n  #n is from history
 # !-n  #nth previous command
+# !n:p #safer alternative, print without running, saves to history to edit the preview with ctrl-p
 # !prefix of command
 # !?string   #previous command matching string
 # ^string1^string2^   #repeat the last command, replacing string1 with string1
+# history #print full history
+# history | grep git #better than ctrl-r for very old commands
+#
 #
 ## Controlling the screen
 # Ctrl+L: Clear the screen. This is similar to running the "clear" command.
@@ -359,11 +364,17 @@ grep upgraded /var/log/pacman.log # removed, installed
 /etc/pacman.conf # pacman configuration: Ignore specific package upgrade etc.
 
 reflector --latest 5 --protocol https --sort rate --verbose --save /etc/pacman.d/mirrorlist # Get fastest mirrors
+reflector --country Denmark,Germany --age 12 --protocol https --sort rate --verbose --number 10 --save /etc/pacman.d/mirrorlist
 
 pacman -Syyu # Force refresh of databases (use new mirrors) + system update
 
 git clone https://aur.archlinux.org/yay; cd yay
 makepkg -si
+
+# pacman -Q is so fking broken
+#   -s search locally installed
+#   -l list files owned by package
+#   -c changelog
 
 # }}}
 
@@ -432,6 +443,10 @@ sudo iptables -P FORWARD DROP
 sudo -k
 # Reset password timeout
 faillock --user vlad --reset
+# Check last attempts which may count towards the lockout
+faillock --user vlad
+# To see lockout duration
+grep -E 'deny|unlock_time|fail_interval' /etc/security/faillock.conf
 
 # Wifi
 iwctl

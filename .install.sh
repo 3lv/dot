@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# To generate the list for arch:
+#pacman -Qqe # Explicitly installed packages
+#pacman -Qqm # From aur
 arch_packages=(\
 	base\
 	base-devel\

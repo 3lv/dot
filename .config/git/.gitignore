@@ -1,6 +1,7 @@
 .s
 .netrwhist
 .cache
+__pycache__
 
 .claude
 # Out in to add it instead

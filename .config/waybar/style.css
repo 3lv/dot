@@ -1,4 +1,4 @@
-@import "/usr/lib/hyprwhspr/config/waybar/hyprwhspr-style.css";
+/*@import "/usr/lib/hyprwhspr/config/waybar/hyprwhspr-style.css";*/
 /* =============================================================================
    Waybar style — dark minimal, #ffffff instead of #4cff99 accent (matches your i3/hyprland border)
    Autohide: bar sits at margin-top: -32px by default, slides down on hover
@@ -84,7 +84,10 @@ window#waybar:hover {
 #battery,
 #network,
 #pulseaudio,
-#tray {
+#tray,
+#language,
+#backlight
+{
     padding: 0 10px;
     color: #aaaaaa;
 }
@@ -147,6 +150,7 @@ window#waybar:hover {
 #clock,
 #battery,
 #network,
-#pulseaudio {
+#pulseaudio,
+#language {
     border-left: 1px solid rgba(255, 255, 255, 0.06);
 }

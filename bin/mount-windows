@@ -16,6 +16,8 @@ mkdir -p "$TARGET_MOUNT"
 
 # Read block device info: Parent Disk (PKNAME), Partition Path (PATH), and Partition Type (PARTTYPENAME)
 # We use process substitution to feed lsblk output into the while loop
+
+# Microsoft reserved then Microsoft basic data
 while read -r current_disk part_path part_type; do
     
     # Check our heuristic:
@@ -40,15 +42,16 @@ done < <(lsblk -n -l -p -o PKNAME,PATH,PARTTYPENAME)
 if [ -n "$TARGET_PART" ]; then
     echo "Heuristic match found! Windows partition is at: $TARGET_PART"
     
-    # Attempt to mount
-    #mount "$TARGET_PART" "$TARGET_MOUNT"
-    #Mount as user 1000
-    mount -o uid=1000,gid=1000,dmask=0022,fmask=0133 "$TARGET_PART" "$TARGET_MOUNT"
-    
-    if [ $? -eq 0 ]; then
-        echo "Success: Mounted $TARGET_PART to $TARGET_MOUNT"
+    # Attempt to mount read-write, fall back to read-only if Windows is hibernated
+    MOUNT_OPTS="uid=1000,gid=1000,dmask=0022,fmask=0133"
+    if mount -t ntfs-3g -o "$MOUNT_OPTS" "$TARGET_PART" "$TARGET_MOUNT" 2>/dev/null; then
+        echo "Success: Mounted $TARGET_PART to $TARGET_MOUNT (read-write)"
+    elif mount -t ntfs-3g -o "ro,$MOUNT_OPTS" "$TARGET_PART" "$TARGET_MOUNT"; then
+        echo "Warning: Mounted $TARGET_PART to $TARGET_MOUNT READ-ONLY"
+        echo "         Windows Fast Startup is likely enabled. Disable it or do a full Shift+Shutdown."
     else
-        echo "Error: Failed to mount $TARGET_PART. (Is Windows fast-startup enabled or the drive hibernated?)"
+        echo "Error: Failed to mount $TARGET_PART entirely."
+        echo "Possible fix: ntfsfix -d /dev/nvme0n1p3"
         exit 2
     fi
 else

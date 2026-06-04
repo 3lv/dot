@@ -12,11 +12,13 @@
   ],
   "modules-right": [
     "pulseaudio",
+    "backlight",
     "network",
+    "hyprland/language",
     "battery",
     "clock",
-    "tray",
-    "custom/hyprwhspr"
+    "tray"
+    //"custom/hyprwhspr"
   ],
   "hyprland/workspaces": {
     "format": "{id}",
@@ -41,6 +43,12 @@
     "max-length": 20,
     "on-click": "alacritty --title 'nmtui' --class '__floating_nmtui' -e nmtui"
   },
+  "backlight": {
+    "format": "{icon}  {percent}%",
+    "format-icons": ["", "", "", "", "", "", "", "", ""],
+    "on-scroll-up": "brightnessctl set +5%",
+    "on-scroll-down": "brightnessctl set 5%-"
+  },
   "pulseaudio": {
     "format": "{icon}  {volume}%",
     "format-muted": "  muted",
@@ -54,6 +62,16 @@
     "on-click": "pavucontrol",
     "on-click-right": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
     "scroll-step": 1
+  },
+  //"hyprland/language": {
+  //  "format": "  {lang}",
+  //  //"on-click": "alacritty --title 'setxkbmap' --class '__floating_setxkbmap' -e setxkbmap -layout us,ro,ru -variant ,std,phonetic -option grp:caps_toggle"
+  //},
+  "hyprland/language": {
+    "format": "{}",
+    "format-en": "US",
+    "format-ro": "RO",
+    "format-ru": "RU"
   },
   "battery": {
     "format": "{icon}  {capacity}%",
@@ -75,7 +93,7 @@
     "spacing": 8,
     "icon-size": 14
   },
-  "include": [
-    "/home/vlad/.config/waybar/hyprwhspr-module.jsonc"
-  ]
+  //"include": [
+  //  "/home/vlad/.config/waybar/hyprwhspr-module.jsonc"
+  //]
 }

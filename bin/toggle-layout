@@ -3,6 +3,7 @@
 layouts=(
     "us"
     "ro std"
+    "ru phonetic"
     #"fr"
 )
 

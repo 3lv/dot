@@ -8,8 +8,8 @@
 
 theme = "vlad"
 
-force_keyboard_focus = true
-close_when_open = true
+force_keyboard_focus = false
+close_when_open = false
 
 [placeholders]
 "default" = { input = "search...", list = "" }

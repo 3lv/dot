@@ -24,8 +24,14 @@ PS1+="${reset}\$ "      # $ or # for sudo
 export PS1 # }}}
 
 PATH="$PATH":"$HOME/.pub-cache/bin"
+# Prefer the NOT XDG compliant ~/bin over ~/.local/bin for own scripts.
 export PATH="~/bin:$PATH"
 export EDITOR="nvim"
+
+HISTSIZE=100000 # Default ~500
+HISTFILESIZE=200000 # Default ~500
+shopt -s histappend
+#HISTTIMEFORMAT="%F %T" # Is just too strong
 
 alias ls='ls --color=auto'
 alias grep='grep --color=auto' # --exclude-dir={.git,node_modules}
@@ -42,9 +48,10 @@ source /usr/share/nvm/init-nvm.sh
 
 #source "$HOME/.api_keys.sh"
 
-# vi:fdm=marker
-
 . "$HOME/.cargo/env"
 
 # OpenClaw Completion
 source "/home/vlad/.openclaw/completions/openclaw.bash"
+
+# vi:fdm=marker
+
