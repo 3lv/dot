@@ -21,6 +21,14 @@
 !.config/waybar
 !.config/waycorner
 
+!.config/Code/
+.config/Code/*
+!.config/Code/User/
+.config/Code/User/*
+!.config/Code/User/settings.json
+!.config/Code/User/keybinds.json
+
+
 # xdg non compliants
 !.w3m
 .w3m/*

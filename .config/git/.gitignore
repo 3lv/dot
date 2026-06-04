@@ -1,8 +1,14 @@
-.s
-.netrwhist
+# Local cache
 .cache
 __pycache__
 
+# Vim related artifacts
+.s
+.netrwhist
+
+# Local config
+.vscode
 .claude
-# Out in to add it instead
+
+# Out in to add AI related stuff instead
 CLAUDE.md

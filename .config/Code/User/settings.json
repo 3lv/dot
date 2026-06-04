@@ -1,0 +1,32 @@
+{
+    "vim.useSystemClipboard": true,
+    "python.defaultInterpreterPath": "/bin/python",
+    "jupyter.askForKernelRestart": false,
+    "notebook.output.scrolling": true,
+    "github.copilot.nextEditSuggestions.enabled": true,
+    "github.copilot.enable": {
+        "*": true,
+        "plaintext": false,
+        "markdown": false,
+        "scminput": false,
+        "shellscript": true
+    },
+    "shellcheck.customArgs": ["-x"],
+    "[rust]": {
+        "editor.defaultFormatter": "rust-lang.rust-analyzer",
+        "editor.formatOnSave": true
+    },
+    "rust-analyzer.testExplorer": true,
+    "rust-analyzer.check.command": "clippy",
+    "rust-analyzer.showSyntaxTree": true,
+    "terminal.integrated.commandsToSkipShell": [
+        "-workbench.action.quickOpen",
+        "-cursorPageUp"
+    ],
+    "explorer.confirmPasteNative": false,
+    "claudeCode.preferredLocation": "panel",
+    "explorer.confirmDelete": false,
+    "workbench.secondarySideBar.showLabels": false,
+    "workbench.editor.empty.hint": "hidden",
+    "git.suggestSmartCommit": false,
+}
